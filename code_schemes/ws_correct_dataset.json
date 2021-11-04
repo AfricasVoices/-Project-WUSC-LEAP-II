@@ -1,0 +1,826 @@
+{
+  "SchemeID": "Scheme-fffffc6e",
+  "Name": "KAKUMA WS - Correct Dataset",
+  "Version": "0.0.0.1",
+  "Codes": [
+    {
+      "CodeID": "code-ac8223be",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma household language",
+      "StringValue": "kakuma_household_language",
+      "NumericValue": 1,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma household language"
+      ]
+    },
+    {
+      "CodeID": "code-5d39be18",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma age",
+      "StringValue": "kakuma_age",
+      "NumericValue": 2,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma age"
+      ]
+    },
+    {
+      "CodeID": "code-7e3694d6",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma gender",
+      "StringValue": "kakuma_gender",
+      "NumericValue": 3,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma gender"
+      ]
+    },
+    {
+      "CodeID": "code-2afd82b5",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma location",
+      "StringValue": "kakuma_location",
+      "NumericValue": 4,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma location"
+      ]
+    },
+    {
+      "CodeID": "code-a9a51f4a",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma nationality",
+      "StringValue": "kakuma_nationality",
+      "NumericValue": 5,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma nationality"
+      ]
+    },
+    {
+      "CodeID": "code-5f2bd3ae",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma disabled",
+      "StringValue": "kakuma_disabled",
+      "NumericValue": 66,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma disabled"
+      ]
+    },
+    {
+      "CodeID": "code-4a85f050",
+      "CodeType": "Normal",
+      "DisplayText": "leap s02e01",
+      "StringValue": "leap s02e01",
+      "NumericValue": 72,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap s02e01"
+      ]
+    },
+    {
+      "CodeID": "code-00ec1788",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03e01",
+      "StringValue": "kakuma_s03e01",
+      "NumericValue": 61,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03e01"
+      ]
+    },
+    {
+      "CodeID": "code-5e359c2e",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03e02",
+      "StringValue": "kakuma_s03e02",
+      "NumericValue": 62,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03e02"
+      ]
+    },
+    {
+      "CodeID": "code-54bf63fb",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03e03",
+      "StringValue": "kakuma_s03e03",
+      "NumericValue": 63,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03e03"
+      ]
+    },
+    {
+      "CodeID": "code-be91c494",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03e04",
+      "StringValue": "kakuma_s03e04",
+      "NumericValue": 64,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03e04"
+      ]
+    },
+    {
+      "CodeID": "code-03b38d66",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03e05",
+      "StringValue": "kakuma_s03e05",
+      "NumericValue": 65,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03e05"
+      ]
+    },
+    {
+      "CodeID": "code-1c127aaa",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma expectations_from_educated_girls",
+      "StringValue": "kakuma_expectations_from_educated_girls",
+      "NumericValue": 67,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma expectations_from_educated_girls"
+      ]
+    },
+    {
+      "CodeID": "code-fb3ffb5d",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma prevention of sgbv cases",
+      "StringValue": "kakuma_prevention_of_sgbv_cases",
+      "NumericValue": 68,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma prevention_of_sgbv_cases"
+      ]
+    },
+    {
+      "CodeID": "code-55606014",
+      "CodeType": "Normal",
+      "DisplayText": "s03 kakuma impact made",
+      "StringValue": "s03 kakuma impact made",
+      "NumericValue": 69,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "s03 kakuma impact made"
+      ]
+    },
+    {
+      "CodeID": "code-773b071f",
+      "CodeType": "Normal",
+      "DisplayText": "s03 kakuma lessons learnt",
+      "StringValue": "s03 kakuma lessons learnt",
+      "NumericValue": 70,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "s03 kakuma lessons learnt"
+      ]
+    },
+    {
+      "CodeID": "code-25596541",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s03 close out",
+      "StringValue": "kakuma_s03_close_out",
+      "NumericValue": 71,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s03 close out"
+      ]
+    },
+    {
+      "CodeID": "code-18a80f1b",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei s01e01",
+      "StringValue": "leap_kalobeyei_s01e01",
+      "NumericValue": 46,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei s01e01"
+      ]
+    },
+    {
+      "CodeID": "code-b7e78e4e",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei s01e02",
+      "StringValue": "leap_kalobeyei_s01e02",
+      "NumericValue": 47,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei s01e02"
+      ]
+    },
+    {
+      "CodeID": "code-18ef9e65",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei s01e03",
+      "StringValue": "leap_kalobeyei_s01e03",
+      "NumericValue": 48,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei s01e03"
+      ]
+    },
+    {
+      "CodeID": "code-1f005d00",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei s01e04",
+      "StringValue": "leap_kalobeyei_s01e04",
+      "NumericValue": 49,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei s01e04"
+      ]
+    },
+    {
+      "CodeID": "code-3611e0c8",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei s01e05",
+      "StringValue": "leap_kalobeyei_s01e05",
+      "NumericValue": 50,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei s01e05"
+      ]
+    },
+    {
+      "CodeID": "code-69dfe764",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei participants engaging",
+      "StringValue": "leap_kalobeyei_participants_engaging",
+      "NumericValue": 51,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei participants engaging"
+      ]
+    },
+    {
+      "CodeID": "code-31548716",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei targeted group parent",
+      "StringValue": "leap_kalobeyei_targeted_group_parent",
+      "NumericValue": 52,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei targeted group parent"
+      ]
+    },
+    {
+      "CodeID": "code-958fc06c",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei child gender",
+      "StringValue": "leap_kalobeyei_child_gender",
+      "NumericValue": 53,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei child gender"
+      ]
+    },
+    {
+      "CodeID": "code-55ee8cd5",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei consent to engage child",
+      "StringValue": "leap_kalobeyei_consent_to_engage_child",
+      "NumericValue": 54,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei consent to engage child"
+      ]
+    },
+    {
+      "CodeID": "code-fc27fb78",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei age of parent",
+      "StringValue": "leap_kalobeyei_age_of_parent",
+      "NumericValue": 55,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei age of parent"
+      ]
+    },
+    {
+      "CodeID": "code-6134a3f6",
+      "CodeType": "Normal",
+      "DisplayText": "leap kalobeyei currently in school",
+      "StringValue": "leap_kalobeyei_currently_in_school",
+      "NumericValue": 56,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "leap kalobeyei currently in school"
+      ]
+    },
+    {
+        "CodeID": "code-9f4fd804",
+        "CodeType": "Normal",
+        "DisplayText": "leap kalobeyei girls empowerment",
+        "StringValue": "leap_kalobeyei_girls_empowerment",
+        "NumericValue": 57,
+        "VisibleInCoda": true,
+        "MatchValues": [
+          "leap kalobeyei girls empowerment"
+        ]
+    },
+    {
+        "CodeID": "code-2949c002",
+        "CodeType": "Normal",
+        "DisplayText": "s01 leap kalobeyei impact made",
+        "StringValue": "s01_leap_kalobeyei_impact_made",
+        "NumericValue": 58,
+        "VisibleInCoda": true,
+        "MatchValues": [
+          "s01 leap kalobeyei impact made"
+        ]
+      },
+      {
+        "CodeID": "code-e34dcb97",
+        "CodeType": "Normal",
+        "DisplayText": "s01 leap kalobeyei lessons learnt",
+        "StringValue": "s01_leap_kalobeyei_lessons_learnt",
+        "NumericValue": 59,
+        "VisibleInCoda": true,
+        "MatchValues": [
+          "s01 leap kalobeyei lessons learnt"
+        ]
+      },
+    {
+        "CodeID": "code-15bd5090",
+        "CodeType": "Normal",
+        "DisplayText": "s01 leap kalobeyei close out",
+        "StringValue": "s01_leap_kalobeyei_close_out",
+        "NumericValue": 60,
+        "VisibleInCoda": true,
+        "MatchValues": [
+          "s01 leap kalobeyei close out"
+        ]
+      },
+    {
+      "CodeID": "code-ba352823",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e01",
+      "StringValue": "kakuma_s02e01",
+      "NumericValue": 32,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e01"
+      ]
+    },
+    {
+      "CodeID": "code-bebdf9ff",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e02",
+      "StringValue": "kakuma_s02e02",
+      "NumericValue": 33,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e02"
+      ]
+    },
+    {
+      "CodeID": "code-f14eb13e",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e03",
+      "StringValue": "kakuma_s02e03",
+      "NumericValue": 34,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e03"
+      ]
+    },
+    {
+      "CodeID": "code-206d6111",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e04",
+      "StringValue": "kakuma_s02e04",
+      "NumericValue": 35,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e04"
+      ]
+    },
+    {
+      "CodeID": "code-5ba1733c",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e05",
+      "StringValue": "kakuma_s02e05",
+      "NumericValue": 36,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e05"
+      ]
+    },
+    {
+      "CodeID": "code-2e24d0e3",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e06",
+      "StringValue": "kakuma_s02e06",
+      "NumericValue": 37,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e06"
+      ]
+    },
+    {
+      "CodeID": "code-28241642",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e07",
+      "StringValue": "kakuma_s02e07",
+      "NumericValue": 38,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e07"
+      ]
+    },
+    {
+      "CodeID": "code-d3bf765a",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s02e08",
+      "StringValue": "kakuma_s02e08",
+      "NumericValue": 42,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s02e08"
+      ]
+    },
+    {
+      "CodeID": "code-85e7b461",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma community views on girls education",
+      "StringValue": "kakuma community views on girls education",
+      "NumericValue": 39,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma community views on girls education"
+      ]
+    },
+    {
+      "CodeID": "code-3b6b6077",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma community views on girls education final",
+      "StringValue": "kakuma community views on girls education final",
+      "NumericValue": 43,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma community views on girls education final"
+      ]
+    },
+    {
+      "CodeID": "code-77eb3fa0",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma responses to sexual violence",
+      "StringValue": "kakuma responses to sexual violence",
+      "NumericValue": 40,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma responses to sexual violence"
+      ]
+    },
+    {
+      "CodeID": "code-8a3e45f9",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma adolescent mothers challenges",
+      "StringValue": "kakuma adolescent mothers challenges",
+      "NumericValue": 41,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma adolescent mothers challenges"
+      ]
+    },
+    {
+      "CodeID": "code-53793a6c",
+      "CodeType": "Normal",
+      "DisplayText": "s02 kakuma impact made",
+      "StringValue": "s02 kakuma impact made",
+      "NumericValue": 44,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "s02 kakuma impact made"
+      ]
+    },
+    {
+      "CodeID": "code-0f3d915d",
+      "CodeType": "Normal",
+      "DisplayText": "s02 kakuma lessons learnt",
+      "StringValue": "s02 kakuma lessons learnt",
+      "NumericValue": 45,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "s02 kakuma lessons learnt"
+      ]
+    },
+    {
+      "CodeID": "code-b86d2039",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e01",
+      "StringValue": "kakuma_s01e01",
+      "NumericValue": 6,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e01"
+      ]
+    },
+    {
+      "CodeID": "code-db2453d5",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e02",
+      "StringValue": "kakuma_s01e02",
+      "NumericValue": 7,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e02"
+      ]
+    },
+    {
+      "CodeID": "code-05b30dbf",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e03",
+      "StringValue": "kakuma_s01e03",
+      "NumericValue": 8,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e03"
+      ]
+    },
+    {
+      "CodeID": "code-d015fae8",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e04",
+      "StringValue": "kakuma_s01e04",
+      "NumericValue": 9,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e04"
+      ]
+    },
+    {
+      "CodeID": "code-d81cf4bd",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e05",
+      "StringValue": "kakuma_s01e05",
+      "NumericValue": 10,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e05"
+      ]
+    },
+    {
+      "CodeID": "code-001cf54d",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e06",
+      "StringValue": "kakuma_s01e06",
+      "NumericValue": 11,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e06"
+      ]
+    },
+    {
+      "CodeID": "code-caf58c40",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01e07",
+      "StringValue": "kakuma_s01e07",
+      "NumericValue": 12,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01e07"
+      ]
+    },
+    {
+      "CodeID": "code-daf99cu0",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma s01 intro",
+      "StringValue": "kakuma_s01_intro",
+      "NumericValue": 13,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma s01 intro"
+      ]
+    },
+    {
+      "CodeID": "code-b03a8d5c",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma girls education champions",
+      "StringValue": "kakuma_girls_education_champions",
+      "NumericValue": 14,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma girls education champions"
+      ]
+    },
+    {
+      "CodeID": "code-c93519aa",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma encouragement for boys",
+      "StringValue": "kakuma_encouragement_for_boys",
+      "NumericValue": 15,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma encouragement for boys"
+      ]
+    },
+    {
+      "CodeID": "code-77ef8619",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma unmarried fathers community view",
+      "StringValue": "kakuma_unmarried_fathers_community_view",
+      "NumericValue": 16,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma unmarried fathers community view"
+      ]
+    },
+    {
+      "CodeID": "code-e4a281b8",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma lessons learnt",
+      "StringValue": "kakuma_lessons_learnt",
+      "NumericValue": 17,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma lessons learnt"
+      ]
+    },
+    {
+      "CodeID": "code-9b2cb541",
+      "CodeType": "Normal",
+      "DisplayText": "kakuma show suggestions",
+      "StringValue": "kakuma_show_suggestions",
+      "NumericValue": 18,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "kakuma show suggestions"
+         ]
+    },
+    {
+      "CodeID": "code-cb673df2",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e01",
+      "StringValue": "covid19 adaptation kakuma s01e01",
+      "NumericValue": 19,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e01"
+         ]
+    },
+    {
+      "CodeID": "code-e9a97cc3",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e02",
+      "StringValue": "covid19 adaptation kakuma s01e02",
+      "NumericValue": 20,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e02"
+         ]
+    },
+    {
+      "CodeID": "code-8dd7a90e",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e03",
+      "StringValue": "covid19 adaptation kakuma s01e03",
+      "NumericValue": 21,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e03"
+         ]
+    },
+    {
+      "CodeID": "code-bd79e6d4",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e04",
+      "StringValue": "covid19 adaptation kakuma s01e04",
+      "NumericValue": 22,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e04"
+         ]
+    },
+     {
+      "CodeID": "code-4f678668",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e05",
+      "StringValue": "covid19 adaptation kakuma s01e05",
+      "NumericValue": 23,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e05"
+         ]
+    },
+    {
+      "CodeID": "code-ebd10beb",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e06",
+      "StringValue": "covid19 adaptation kakuma s01e06",
+      "NumericValue": 24,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e06"
+         ]
+    },
+    {
+      "CodeID": "code-8a634e84",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e07",
+      "StringValue": "covid19 adaptation kakuma s01e07",
+      "NumericValue": 25,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e07"
+         ]
+    },
+    {
+      "CodeID": "code-9d37833a",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e08",
+      "StringValue": "covid19 adaptation kakuma s01e08",
+      "NumericValue": 26,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e08"
+         ]
+    },
+    {
+      "CodeID": "code-c90f0bd2",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e09",
+      "StringValue": "covid19 adaptation kakuma s01e09",
+      "NumericValue": 27,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e09"
+         ]
+    },
+    {
+      "CodeID": "code-d9aac344",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma s01e10",
+      "StringValue": "covid19 adaptation kakuma s01e10",
+      "NumericValue": 28,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma s01e10"
+         ]
+    },
+    {
+      "CodeID": "code-c0c42726",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma learning from home experience",
+      "StringValue": "covid19_adaptation_kakuma_learning_from_home_experience",
+      "NumericValue": 29,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma learning from home experience"
+      ]
+    },
+    {
+      "CodeID": "code-b576be7e",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma homeschooling support",
+      "StringValue": "covid19_adaptation_kakuma_homeschooling_support",
+      "NumericValue": 30,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma homeschooling support"
+      ]
+    },
+    {
+      "CodeID": "code-9999ba0c",
+      "CodeType": "Normal",
+      "DisplayText": "covid19 adaptation kakuma show suggestions",
+      "StringValue": "covid19_adaptation_kakuma_show_suggestions",
+      "NumericValue": 31,
+      "VisibleInCoda": true,
+      "MatchValues": [
+        "covid19 adaptation kakuma show suggestions"
+      ]
+    },
+    {
+      "CodeID": "code-NC-42f1d983",
+      "CodeType": "Control",
+      "ControlCode": "NC",
+      "DisplayText": "NC (not coded)",
+      "NumericValue": -30,
+      "StringValue": "NC",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-NR-5e3eee23",
+      "CodeType": "Control",
+      "ControlCode": "NR",
+      "DisplayText": "NR (not reviewed)",
+      "NumericValue": -40,
+      "StringValue": "NR",
+      "VisibleInCoda": false
+    },
+    {
+      "CodeID": "code-CE-016c1e22",
+      "CodeType": "Control",
+      "ControlCode": "CE",
+      "DisplayText": "CE (coding error)",
+      "NumericValue": -110,
+      "StringValue": "CE",
+      "VisibleInCoda": false
+    }
+  ]
+}
