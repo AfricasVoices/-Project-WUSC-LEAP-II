@@ -96,19 +96,6 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
         )
     ),
-    rapid_pro_target=RapidProTarget(
-        rapid_pro=RapidProClientConfiguration(
-            domain="textit.com",
-            token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
-        ),
-        sync_config=EngagementDBToRapidProConfiguration(
-            consent_withdrawn_dataset=DatasetConfiguration(
-                engagement_db_datasets=["kakuma_gender", "kakuma_location", "kakuma_household_language", "kakuma_age", "leap_s02e01"],
-                rapid_pro_contact_field=ContactField(key="engagement_db_consent_withdrawn", label="Engagement DB Consent Withdrawn")
-            ),
-            write_mode=WriteModes.CONCATENATE_TEXTS
-        )
-    ),
     analysis=AnalysisConfiguration(
         google_drive_upload=GoogleDriveUploadConfiguration(
             credentials_file_url="gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
