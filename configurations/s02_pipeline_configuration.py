@@ -8,8 +8,6 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="project-wusc-leap-ii",
     project_start_date=isoparse("2021-03-01T10:30:00+03:00"),
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
-    test_participant_uuids=[
-    ],
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
         database_path="engagement_databases/wusc"
