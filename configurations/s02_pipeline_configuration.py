@@ -21,6 +21,36 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         credentials_file_url="gs://avf-credentials/avf-dashboards-firebase-adminsdk-gvecb-ef772e79b6.json",
     ),
     rapid_pro_sources=[
+RapidProSource(
+                    rapid_pro=RapidProClientConfiguration(
+                        domain="textit.com",
+                        token_file_url="gs://avf-credentials/wusc-keep-II-kakuma-textit-token.txt"
+                    ),
+                    sync_config=RapidProToEngagementDBConfiguration(
+                        flow_result_configurations=[
+                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Household_Language",
+                                                    "household_language"),
+                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Age", "age"),
+                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Location", "location"),
+                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Nationality", "nationality"),
+                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Gender", "gender"),
+
+                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Household_Language",
+                                                    "household_language"),
+                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Age", "age"),
+                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Location", "location"),
+                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Nationality", "nationality"),
+                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Gender", "gender"),
+
+                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Household_Language",
+                                                    "household_language"),
+                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Age", "age"),
+                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Location", "location"),
+                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Nationality", "nationality"),
+                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Gender", "gender")
+                        ]
+                    )
+                ),
         RapidProSource(
             rapid_pro=RapidProClientConfiguration(
                 domain="textit.com",
