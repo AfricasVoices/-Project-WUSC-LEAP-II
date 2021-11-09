@@ -14,7 +14,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
     ),
     uuid_table=UUIDTableClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
-        table_name="avf-participants-id-to-uuid",
+        table_name="avf-global-urn-to-participant-uuid",
         uuid_prefix="avf-participant-uuid-"
     ),
     operations_dashboard=OperationsDashboardConfiguration(
