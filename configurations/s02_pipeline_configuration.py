@@ -10,7 +10,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
-        database_path="engagement_databases/wusc"
+        database_path="engagement_databases/WUSC"
     ),
     uuid_table=UUIDTableClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
