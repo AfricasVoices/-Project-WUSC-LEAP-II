@@ -6,11 +6,11 @@ from src.pipeline_configuration_spec import *
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="WUSC-LEAP-II",
-    project_start_date=isoparse("2021-03-01T10:30:00+03:00"),
+    project_start_date=isoparse("2021-03-01T10:30:00+03:00"), #Todo update before production
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
-        database_path="engagement_databases/WUSC"
+        database_path="engagement_databases/WUSC_KAKUMA_KALOBEYEI"
     ),
     uuid_table=UUIDTableClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
@@ -84,7 +84,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             dataset_configurations=[
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_gender", #TODO rename this to WUSC_kakuma_kalobeyei_gender
-                    engagement_db_dataset="kakuma_gender",
+                    engagement_db_dataset="gender",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("gender"), auto_coder=swahili.DemographicCleaner.clean_gender)
                     ],
@@ -92,7 +92,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_location",
-                    engagement_db_dataset="kakuma_location",
+                    engagement_db_dataset="location",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("location"), auto_coder=None),
                     ],
@@ -100,7 +100,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_household_language",
-                    engagement_db_dataset="kakuma_household_language",
+                    engagement_db_dataset="household_language",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("household_language"), auto_coder=None),
                     ],
@@ -108,7 +108,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_age",
-                    engagement_db_dataset="kakuma_age",
+                    engagement_db_dataset="age",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("age"), auto_coder=None), #Todo add auto_code function
                     ],
@@ -144,7 +144,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["kakuma_gender"],
+                engagement_db_datasets=["gender"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="gender_raw",
                 coding_configs=[
@@ -155,7 +155,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["kakuma_location"],
+                engagement_db_datasets=["location"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="location_raw",
                 coding_configs=[
