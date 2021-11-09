@@ -1,28 +1,54 @@
 from core_data_modules.cleaners import swahili
-from dateutil.parser import isoparse
 
 from src.pipeline_configuration_spec import *
 
-rapid_pro_uuid_filter = UuidFilter(uuid_file_url=)
+rapid_pro_uuid_filter = UuidFilter(uuid_file_url="gs://avf-project-datasets/2021/WUSC_POOL/initial_wusc_kakuma_kalobeyei_pool_deidentified_uuids.csv")
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
-    pipeline_name="project-wusc-leap-ii",
-    project_start_date=isoparse("2021-03-01T10:30:00+03:00"),
-    project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
-    description="Creates the initial Wusc Engagement Dtatabse from demographics responses to KEEP-II S03 AND LEAP 1",
+    pipeline_name="CREATE-WUSC-POOL",
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
-        database_path="engagement_databases/wusc"
+        database_path="engagement_databases/WUSC_KAKUMA_KALOBEYEI"
     ),
     uuid_table=UUIDTableClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
-        table_name="avf-participants-id-to-uuid",
+        table_name="avf-global-urn-to-participant-uuid",
         uuid_prefix="avf-participant-uuid-"
     ),
     operations_dashboard=OperationsDashboardConfiguration(
         credentials_file_url="gs://avf-credentials/avf-dashboards-firebase-adminsdk-gvecb-ef772e79b6.json",
     ),
     rapid_pro_sources=[
+        RapidProSource(
+            rapid_pro=RapidProClientConfiguration(
+                domain="textit.com",
+                token_file_url="gs://avf-credentials/wusc-keep-II-kakuma-textit-token.txt"
+            ),
+            sync_config=RapidProToEngagementDBConfiguration(
+                flow_result_configurations=[
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Household_Language",
+                                            "household_language"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Age", "age"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Location", "location"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Nationality", "nationality"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Gender", "gender"),
+
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Household_Language",
+                                            "household_language"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Age", "age"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Location", "location"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Nationality", "nationality"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Gender", "gender"),
+
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Household_Language",
+                                            "household_language"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Age", "age"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Location", "location"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Nationality", "nationality"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Gender", "gender")
+                ]
+            )
+        ),
         RapidProSource(
             rapid_pro=RapidProClientConfiguration(
                 domain="textit.com",
@@ -35,41 +61,10 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Age", "age"),
                     FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Location", "location"),
                     FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Gender", "gender"),
-
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Gender", "gender")
                 ]
             )
-        ),
-        RapidProSource(
-                    rapid_pro=RapidProClientConfiguration(
-                        domain="textit.com",
-                        token_file_url="gs://avf-credentials/wusc-keep-II-kakuma-textit-token.txt"
-                    ),
-                    sync_config=RapidProToEngagementDBConfiguration(
-                        flow_result_configurations=[
-                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Household_Language",
-                                                    "household_language"),
-                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Age", "age"),
-                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Location", "location"),
-                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Nationality", "nationality"),
-                            FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Gender", "gender"),
-
-                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Household_Language",
-                                                    "household_language"),
-                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Age", "age"),
-                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Location", "location"),
-                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Nationality", "nationality"),
-                            FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Gender", "gender"),
-
-                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Household_Language",
-                                                    "household_language"),
-                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Age", "age"),
-                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Location", "location"),
-                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Nationality", "nationality"),
-                            FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Gender", "gender")
-                        ]
-                    )
-                )
+        )
     ],
     coda_sync=CodaConfiguration(
         coda=CodaClientConfiguration(credentials_file_url="gs://avf-credentials/coda-production.json"),
@@ -77,7 +72,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             dataset_configurations=[
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_gender", #TODO rename this to WUSC_kakuma_kalobeyei_gender
-                    engagement_db_dataset="kakuma_gender",
+                    engagement_db_dataset="gender",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("gender"), auto_coder=swahili.DemographicCleaner.clean_gender)
                     ],
@@ -85,7 +80,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_location",
-                    engagement_db_dataset="kakuma_location",
+                    engagement_db_dataset="location",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("location"), auto_coder=None),
                     ],
@@ -93,7 +88,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_household_language",
-                    engagement_db_dataset="kakuma_household_language",
+                    engagement_db_dataset="household_language",
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("household_language"), auto_coder=None),
                     ],
@@ -101,19 +96,12 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_age",
-                    engagement_db_dataset="kakuma_age",
+                    engagement_db_dataset="age",
                     code_scheme_configurations=[
-                        CodeSchemeConfiguration(code_scheme=load_code_scheme("age"), auto_coder=None), #Todo add auto_code function
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("age"), auto_coder=lambda x:
+                        str(swahili.DemographicCleaner.clean_age_within_range(x))),
                     ],
                     ws_code_string_value="kakuma age"
-                ),
-                CodaDatasetConfiguration(
-                    coda_dataset_id="LEAP_s02e01",
-                    engagement_db_dataset="leap_s02e01",
-                    code_scheme_configurations=[
-                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e01"), auto_coder=None)
-                    ],
-                    ws_code_string_value="leap s02e01"
                 ),
             ],
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
@@ -126,18 +114,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         ),
         dataset_configurations=[
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["leap_s02e01"],
-                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
-                raw_dataset="s02e01_raw",
-                coding_configs=[
-                    CodingConfiguration(
-                        code_scheme=load_code_scheme("s02e01"),
-                        analysis_dataset="s02e01"
-                    )
-                ]
-            ),
-            AnalysisDatasetConfiguration(
-                engagement_db_datasets=["kakuma_gender"],
+                engagement_db_datasets=["gender"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="gender_raw",
                 coding_configs=[
@@ -148,7 +125,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["kakuma_location"],
+                engagement_db_datasets=["location"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="location_raw",
                 coding_configs=[
