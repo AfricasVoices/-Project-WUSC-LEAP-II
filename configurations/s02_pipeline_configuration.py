@@ -5,7 +5,7 @@ from src.pipeline_configuration_spec import *
 
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
-    pipeline_name="project-wusc-leap-ii",
+    pipeline_name="WUSC-LEAP-II",
     project_start_date=isoparse("2021-03-01T10:30:00+03:00"),
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
     engagement_database=EngagementDatabaseClientConfiguration(
