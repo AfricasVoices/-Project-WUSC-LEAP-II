@@ -2,7 +2,8 @@ from core_data_modules.cleaners import swahili
 
 from src.pipeline_configuration_spec import *
 
-rapid_pro_uuid_filter = UuidFilter(uuid_file_url="gs://avf-project-datasets/2021/WUSC_POOL/initial_wusc_kakuma_kalobeyei_pool_deidentified_uuids.csv")
+rapid_pro_uuid_filter = UuidFilter(
+    uuid_file_url="gs://avf-project-datasets/2021/WUSC_POOL/initial_wusc_kakuma_kalobeyei_pool_deidentified_uuids.json")
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="CREATE-WUSC-POOL",
