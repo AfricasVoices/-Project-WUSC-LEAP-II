@@ -108,62 +108,6 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
         )
     ),
-    analysis=AnalysisConfiguration(
-        google_drive_upload=GoogleDriveUploadConfiguration(
-            credentials_file_url="gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
-            drive_dir="leap_s02_analysis_outputs"
-        ),
-        dataset_configurations=[
-            AnalysisDatasetConfiguration(
-                engagement_db_datasets=["gender"],
-                dataset_type=DatasetTypes.DEMOGRAPHIC,
-                raw_dataset="gender_raw",
-                coding_configs=[
-                    CodingConfiguration(
-                        code_scheme=load_code_scheme("gender"),
-                        analysis_dataset="gender"
-                    )
-                ]
-            ),
-            AnalysisDatasetConfiguration(
-                engagement_db_datasets=["location"],
-                dataset_type=DatasetTypes.DEMOGRAPHIC,
-                raw_dataset="location_raw",
-                coding_configs=[
-                    CodingConfiguration(
-                        code_scheme=load_code_scheme("location"),
-                        analysis_dataset="location"
-                    )
-                ]
-            ),
-            AnalysisDatasetConfiguration(
-                engagement_db_datasets=["age"],
-                dataset_type=DatasetTypes.DEMOGRAPHIC,
-                raw_dataset="age_raw",
-                coding_configs=[
-                    CodingConfiguration(
-                        code_scheme=load_code_scheme("age"),
-                        analysis_dataset="age"
-                    ),
-                    CodingConfiguration(
-                        code_scheme=load_code_scheme("age_category"),
-                        analysis_dataset="age_category",
-                        age_category_config=AgeCategoryConfiguration(
-                            age_analysis_dataset="age",
-                            categories={
-                                (10, 14): "10 to 14",
-                                (15, 17): "15 to 17",
-                                (18, 35): "18 to 35",
-                                (36, 54): "36 to 54",
-                                (55, 99): "55 to 99"
-                             }
-                      )
-                    ),
-                ]
-            )
-        ],
-        ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
-    ),
     archive_configuration = ArchiveConfiguration(
         archive_upload_bucket = "gs://pipeline-execution-backup-archive",
         bucket_dir_path =  "2021/WUSC_LEAP"
