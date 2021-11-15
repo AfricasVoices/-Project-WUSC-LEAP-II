@@ -9,7 +9,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="CREATE-WUSC-POOL",
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
-        database_path="engagement_databases/WUSC_KAKUMA_KALOBEYEI"
+        database_path="engagement_databases/KAKUMA_KALOBEYEI"
     ),
     uuid_table=UUIDTableClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
@@ -108,8 +108,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
         )
     ),
-    archive_configuration = ArchiveConfiguration(
-        archive_upload_bucket = "gs://pipeline-execution-backup-archive",
-        bucket_dir_path =  "2021/WUSC_LEAP"
+    archive_configuration=ArchiveConfiguration(
+        archive_upload_bucket="gs://pipeline-execution-backup-archive",
+        bucket_dir_path="2021/WUSC_LEAP"
     )
 )
