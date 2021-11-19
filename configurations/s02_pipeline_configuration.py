@@ -6,7 +6,7 @@ from src.pipeline_configuration_spec import *
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="WUSC-LEAP-II",
-    project_start_date=isoparse("2021-19-01T00:00:00+03:00"),
+    project_start_date=isoparse("2021-11-19T00:00:00+03:00"),
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
     test_participant_uuids=[
        "avf-participant-uuid-7d817591-37b9-43ef-b3c3-303fdfa1544f",
