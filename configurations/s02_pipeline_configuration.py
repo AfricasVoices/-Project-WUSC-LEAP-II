@@ -6,8 +6,12 @@ from src.pipeline_configuration_spec import *
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="WUSC-LEAP-II",
-    project_start_date=isoparse("2000-01-01T00:00:00+03:00"), #Todo update before production
+    project_start_date=isoparse("2021-19-01T00:00:00+03:00"),
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
+    test_participant_uuids=[
+       "avf-participant-uuid-7d817591-37b9-43ef-b3c3-303fdfa1544f",
+       "avf-participant-uuid-9fe96ca0-18ba-474c-b86f-c4709f45d4ca"
+    ],
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
         database_path="engagement_databases/KAKUMA_KALOBEYEI"
