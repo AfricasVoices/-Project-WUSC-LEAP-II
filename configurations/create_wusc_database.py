@@ -27,26 +27,26 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ),
             sync_config=RapidProToEngagementDBConfiguration(
                 flow_result_configurations=[
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Household_Language",
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "household_language",
                                             "household_language"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Gender", "gender"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "age", "age"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "location", "location"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "nationality", "nationality"),
+                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "gender", "gender"),
 
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Household_Language",
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "household_language",
                                             "household_language"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Gender", "gender"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "age", "age"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "location", "location"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "nationality", "nationality"),
+                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "gender", "gender"),
 
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Household_Language",
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "household_language",
                                             "household_language"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Gender", "gender")
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "age", "age"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "location", "location"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "nationality", "nationality"),
+                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "gender", "gender")
                 ]
             )
         ),
@@ -57,12 +57,12 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ),
             sync_config=RapidProToEngagementDBConfiguration(
                 flow_result_configurations=[
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Household Language",
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "household language",
                                             "household_language"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Gender", "gender")
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "age", "age"),
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "location", "location"),
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "nationality", "nationality"),
+                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "gender", "gender")
                 ]
             )
         )

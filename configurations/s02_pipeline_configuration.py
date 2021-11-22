@@ -6,8 +6,12 @@ from src.pipeline_configuration_spec import *
 
 PIPELINE_CONFIGURATION = PipelineConfiguration(
     pipeline_name="WUSC-LEAP-II",
-    project_start_date=isoparse("2021-03-01T10:30:00+03:00"), #Todo update before production
+    project_start_date=isoparse("2021-11-19T00:00:00+03:00"),
     project_end_date=isoparse("2100-01-01T00:00:00+03:00"),
+    test_participant_uuids=[
+       "avf-participant-uuid-7d817591-37b9-43ef-b3c3-303fdfa1544f",
+       "avf-participant-uuid-9fe96ca0-18ba-474c-b86f-c4709f45d4ca"
+    ],
     engagement_database=EngagementDatabaseClientConfiguration(
         credentials_file_url="gs://avf-credentials/avf-engagement-databases-firebase-credentials-file.json",
         database_path="engagement_databases/KAKUMA_KALOBEYEI"
@@ -24,54 +28,15 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         RapidProSource(
             rapid_pro=RapidProClientConfiguration(
                 domain="textit.com",
-                token_file_url="gs://avf-credentials/wusc-keep-II-kakuma-textit-token.txt"
-            ),
-            sync_config=RapidProToEngagementDBConfiguration(
-                flow_result_configurations=[
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Household_Language",
-                                            "household_language"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_keep_ii_kakuma_demogs", "Gender", "gender"),
-
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Household_Language",
-                                            "household_language"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_covid19_adaptation_kakuma_demogs", "Gender", "gender"),
-
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Household_Language",
-                                            "household_language"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_keep_ii_s03_kakuma_demogs", "Gender", "gender")
-                ]
-            )
-        ),
-        RapidProSource(
-            rapid_pro=RapidProClientConfiguration(
-                domain="textit.com",
                 token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
             ),
             sync_config=RapidProToEngagementDBConfiguration(
                 flow_result_configurations=[
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Household Language",
-                                            "household_language"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Gender", "gender"),
-
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Household_Language",
-                                            "household_language"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Age", "age"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Location", "location"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Nationality", "nationality"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Gender", "gender"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Disability", "disability"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "age", "age"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "location", "location"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "nationality", "nationality"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "gender", "gender"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"),
 
                     FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01")
                 ]
