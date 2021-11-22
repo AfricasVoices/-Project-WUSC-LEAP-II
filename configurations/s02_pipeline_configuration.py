@@ -69,8 +69,6 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Nationality", "nationality"),
                     FlowResultConfiguration("wusc_leap_s01_kalobeyei_demogs", "Gender", "gender"),
 
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Household_Language",
-                                            "household_language"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Age", "age"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Location", "location"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "Nationality", "nationality"),
