@@ -38,8 +38,8 @@ def _get_project_messages_from_engagement_db(analysis_dataset_configurations, en
         cache = None
         log.warning(f"No `cache_path` provided. This tool will perform a full download of project messages from engagement database")
     else:
-        log.info(f"Initialising EngagementAnalysisCache at '{cache_path}/engagement_db_to_analysis'")
-        cache = AnalysisCache(f"{cache_path}/engagement_db_to_analysis")
+        log.info(f"Initialising EngagementAnalysisCache at '{cache_path}'")
+        cache = AnalysisCache(f"{cache_path}")
 
     engagement_db_dataset_messages_map = {}  # of engagement_db_dataset to list of messages
     for analysis_dataset_config in analysis_dataset_configurations:
