@@ -88,7 +88,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("gender"), auto_coder=swahili.DemographicCleaner.clean_gender)
                     ],
-                    ws_code_string_value="kakuma gender"
+                    ws_code_string_value="kakuma_gender"
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_location",
@@ -96,7 +96,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("location"), auto_coder=None),
                     ],
-                    ws_code_string_value="kakuma location"
+                    ws_code_string_value="kakuma_location"
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_household_language",
@@ -104,7 +104,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("household_language"), auto_coder=None),
                     ],
-                    ws_code_string_value="kakuma household language"
+                    ws_code_string_value="kakuma_household_language"
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_age",
@@ -113,7 +113,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("age"), auto_coder=lambda x:
                         str(swahili.DemographicCleaner.clean_age_within_range(x))),
                     ],
-                    ws_code_string_value="kakuma age"
+                    ws_code_string_value="kakuma_age"
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="LEAP_s02e01",
@@ -121,7 +121,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e01"), auto_coder=None)
                     ],
-                    ws_code_string_value="leap s02e01"
+                    ws_code_string_value="leap_s02e01"
                 ),
             ],
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
