@@ -99,6 +99,14 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     ws_code_string_value="kakuma location"
                 ),
                 CodaDatasetConfiguration(
+                    coda_dataset_id="WUSC-KEEP-II_kakuma_nationality",
+                    engagement_db_dataset="nationality",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("nationality"), auto_coder=None),
+                    ],
+                    ws_code_string_value="kakuma_kakuma_nationality"
+                ),
+                CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_household_language",
                     engagement_db_dataset="household_language",
                     code_scheme_configurations=[
