@@ -104,7 +104,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     code_scheme_configurations=[
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("nationality"), auto_coder=None),
                     ],
-                    ws_code_string_value="kakuma_kakuma_nationality"
+                    ws_code_string_value="kakuma_nationality"
                 ),
                 CodaDatasetConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_household_language",
