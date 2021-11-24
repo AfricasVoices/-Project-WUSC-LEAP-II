@@ -23,7 +23,7 @@ if __name__ == "__main__":
                              "numbers from")
     parser.add_argument("target_raw_dataset", metavar="target-raw-dataset",
                         help="Target raw dataset name to check for message relevance from")
-    parser.add_argument("csv_output_file_path", metavar="csv-output-file-path",
+    parser.add_argument("csv_output_dir_path", metavar="csv-output-file-path",
                         help="Path to a CSV file to write the contacts from the locations of interest to. "
                              "Exported file is in a format suitable for direct upload to Rapid Pro")
 
@@ -33,13 +33,14 @@ if __name__ == "__main__":
     pipeline_config = importlib.import_module(args.configuration_module).PIPELINE_CONFIGURATION
     traced_data_paths = args.traced_data_paths
     target_raw_dataset = args.target_raw_dataset
-    csv_output_file_path = args.csv_output_file_path
+    csv_output_dir_path = args.csv_output_dir_path
 
     pipeline = pipeline_config.pipeline_name
 
     uuid_table = pipeline_config.uuid_table.init_uuid_table_client(google_cloud_credentials_file_path)
 
     uuids = set()
+    opt_out_uuids = set()
     for path in traced_data_paths:
         log.info(f"Loading previous traced data from file '{path}'...")
         with open(path) as f:
@@ -48,6 +49,7 @@ if __name__ == "__main__":
 
         for td in data:
             if td["consent_withdrawn"] == Codes.TRUE:
+                opt_out_uuids.add(td["participant_uuid"])
                 continue
 
             for analysis_dataset_config in pipeline_config.analysis.dataset_configurations:
@@ -64,28 +66,52 @@ if __name__ == "__main__":
 
                         if not analysis_utils.relevant(td, "consent_withdrawn", analysis_configurations):
                             for code in codes:
-                                if code.string_value in ["showtime_question", "greeting", "opt_in", "NC"]:
+                                if code.string_value in ["showtime_question", "greeting", "opt_in",
+                                                         "about_conversation", "gratitude", "question",  "NC"]:
                                     uuids.add(td["participant_uuid"])
 
     log.info(f"Found {len(uuids)} participants who sent non relevant messages in {target_raw_dataset}")
 
-    log.info(f"Converting {len(uuids)} uuids to urns...")
-    urn_lut = uuid_table.uuid_to_data_batch(uuids)
-    urns = {urn_lut[uuid] for uuid in uuids}
-    log.info(f"Converted {len(uuids)} to {len(urns)}")
+    log.info(f"Converting {len(uuids)} NC uuids to urns...")
+    nc_urn_lut = uuid_table.uuid_to_data_batch(uuids)
+    nc_urns = {nc_urn_lut[uuid] for uuid in uuids}
+    log.info(f"Converted {len(uuids)} to {len(nc_urns)}")
 
     # Export contacts CSV
-    log.warning(f"Exporting {len(urns)} urns to {csv_output_file_path}...")
+    log.warning(f"Exporting {len(nc_urns)} urns to {csv_output_dir_path}...")
+    csv_output_file_path = f'{csv_output_dir_path}/{target_raw_dataset}_nc_contacts.csv'
     with open(csv_output_file_path, "w") as f:
-        urn_namespaces = {urn.split(":")[0] for urn in urns}
+        urn_namespaces = {urn.split(":")[0] for urn in nc_urns}
         headers = [f"URN:{namespace}" for namespace in urn_namespaces]
 
         writer = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
         writer.writeheader()
-        for urn in urns:
+        for urn in nc_urns:
             namespace = urn.split(":")[0]
             value = urn.split(":")[1]
             writer.writerow({
                 f"URN:{namespace}": value
             })
-        log.info(f"Wrote {len(urns)} urns to {csv_output_file_path}")
+        log.info(f"Wrote {len(nc_urns)} urns to {csv_output_file_path}")
+
+    log.info(f"Converting {len(opt_out_uuids)} Opt out uuids to urns...")
+    opt_out_urn_lut = uuid_table.uuid_to_data_batch(opt_out_uuids)
+    opt_out_urns = {opt_out_urn_lut[uuid] for uuid in opt_out_uuids}
+    log.info(f"Converted {len(opt_out_uuids)} to {len(nc_urns)}")
+
+    # Export contacts CSV
+    log.warning(f"Exporting {len(opt_out_urns)} urns to {csv_output_file_path}...")
+    csv_output_file_path = f'{csv_output_dir_path}/{target_raw_dataset}_opt_out_contacts.csv'
+    with open(csv_output_file_path, "w") as f:
+        urn_namespaces = {urn.split(":")[0] for urn in opt_out_urns}
+        headers = [f"URN:{namespace}" for namespace in urn_namespaces]
+
+        writer = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
+        writer.writeheader()
+        for urn in opt_out_urns:
+            namespace = urn.split(":")[0]
+            value = urn.split(":")[1]
+            writer.writerow({
+                f"URN:{namespace}": value
+            })
+        log.info(f"Wrote {len(opt_out_urns)} urns to {csv_output_file_path}")
