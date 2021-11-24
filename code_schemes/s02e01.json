@@ -4,6 +4,62 @@
   "Version": "0.0.0.1",
   "Codes": [
     {
+      "CodeID": "code-eeaa9502",
+      "CodeType": "Normal",
+      "DisplayText": "fear women domination",
+      "NumericValue": 1,
+      "StringValue": "fear_women_domination",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-a2b2b0a8",
+      "CodeType": "Normal",
+      "DisplayText": "importance of women empowerment",
+      "NumericValue": 2,
+      "StringValue": "importance_of_women_empowerment",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-9c40cee0",
+      "CodeType": "Normal",
+      "DisplayText": "fear of loosing power as head of familiy",
+      "NumericValue": 3,
+      "StringValue": "fear_of_loosing_power_as_head_of_familiy",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f3731c66",
+      "CodeType": "Normal",
+      "DisplayText": "against culture",
+      "NumericValue": 4,
+      "StringValue": "against_culture",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-68c8d28f",
+      "CodeType": "Normal",
+      "DisplayText": "men want to retain control",
+      "NumericValue": 5,
+      "StringValue": "men_want_to_retain_control",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-11db9a4b",
+      "CodeType": "Normal",
+      "DisplayText": "educated women are stubborn and or disrespectful",
+      "NumericValue": 6,
+      "StringValue": "educated_women_are_stubborn_and_or_disrespectful",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-41fc2362",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 7,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
+    {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
       "ControlCode": "NA",
@@ -94,6 +150,15 @@
       "VisibleInCoda": true
     },
     {
+      "CodeID": "code-Q-a5d3700d",
+      "CodeType": "Meta",
+      "MetaCode": "question",
+      "DisplayText": "meta: question",
+      "NumericValue": -100010,
+      "StringValue": "question",
+      "VisibleInCoda": true
+    },
+    {
       "CodeID": "code-G-97cb3199",
       "CodeType": "Meta",
       "MetaCode": "greeting",
@@ -146,6 +211,15 @@
       "NumericValue": -100110,
       "StringValue": "other",
       "VisibleInCoda": true
+    },
+    {
+      "DisplayText": "meta: gratitude",
+      "VisibleInCoda": true,
+      "NumericValue": -100100,
+      "CodeID": "code-GR-e6de1b7e",
+      "CodeType": "Meta",
+      "MetaCode": "gratitude",
+      "StringValue": "gratitude"
     },
     {
       "CodeID": "code-AC-9ed22631",
