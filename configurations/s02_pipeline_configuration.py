@@ -92,8 +92,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     coda_dataset_id="WUSC-KEEP-II_kakuma_disabled",
                     engagement_db_dataset="disabled",
                     code_scheme_configurations=[
-                        CodeSchemeConfiguration(code_scheme=load_code_scheme("disabled"), auto_coder=lambda x:
-                        str(swahili.DemographicCleaner.clean_age_within_range(x))),
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("disabled"), auto_coder=None),
                     ],
                     ws_code_string_value="kakuma_disabled"
                 ),
