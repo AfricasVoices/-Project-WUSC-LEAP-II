@@ -10,7 +10,7 @@ from core_data_modules.analysis import analysis_utils, AnalysisConfiguration
 log = Logger(__name__)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Exports contacts wo sent 'Non relevant' messages"
+    parser = argparse.ArgumentParser(description="Exports contacts who sent 'Non relevant' messages"
                                                  "in the target week question")
 
     parser.add_argument("google_cloud_credentials_file_path", metavar="google-cloud-credentials-file-path",
