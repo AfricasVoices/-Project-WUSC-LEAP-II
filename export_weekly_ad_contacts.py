@@ -58,6 +58,7 @@ if __name__ == "__main__":
 
     #If available, add consented membership group uids to advert uuids
     if pipeline_config.analysis.membership_group_configuration is not None:
+        log.info(f"Adding consented membership group uids to advert uuids ")
         membership_group_csv_urls = \
             pipeline_config.analysis.membership_group_configuration.membership_group_csv_urls.items()
 
@@ -66,26 +67,27 @@ if __name__ == "__main__":
 
         consented_membership_groups_uuids = 0
         opt_out_membership_groups_uuids = 0
-        for uuid in membership_groups_data.values():
-            if uuid in opt_out_uuids:
-                opt_out_membership_groups_uuids += 1
-                continue
+        for membership_group in membership_groups_data.values():
+            for uuid in membership_group:
+                if uuid in opt_out_uuids:
+                    opt_out_membership_groups_uuids += 1
+                    continue
 
-            uuids.add(uuid)
-            consented_membership_groups_uuids +=1
+                consented_membership_groups_uuids += 1
+                uuids.add(uuid)
 
         log.info(f"Found {opt_out_membership_groups_uuids} membership_groups_uuids who have opted out")
         log.info(f"Added {consented_membership_groups_uuids} membership_groups_uuids to advert uuids")
 
 
-    log.info(f"Loaded {len(uuids)} uuids from TracedData (of which {len(opt_out_uuids)} uuids withdrew consent)")
+    log.info(f"Loaded {len(uuids)} uuids  (of which {len(opt_out_uuids)} uuids withdrew consent)")
     advert_uuids = uuids - opt_out_uuids
-    log.info(f"Proceeding with {len(uuids)} opt-in uuids")
+    log.info(f"Proceeding with {len(advert_uuids)} opt-in uuids")
 
-    log.info(f"Converting {len(uuids)} uuids to urns...")
+    log.info(f"Converting {len(advert_uuids)} uuids to urns...")
     urn_lut = uuid_table.uuid_to_data_batch(advert_uuids)
     urns = {urn_lut[uuid] for uuid in advert_uuids}
-    log.info(f"Converted {len(advert_uuids)} to {len(urns)}")
+    log.info(f"Converted {len(advert_uuids)} uuids to {len(urns)} urns")
 
     # Export contacts CSV
     log.warning(f"Exporting {len(urns)} urns to {csv_output_file_path}...")
