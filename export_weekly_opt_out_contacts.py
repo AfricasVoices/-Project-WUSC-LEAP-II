@@ -10,8 +10,7 @@ from core_data_modules.analysis import analysis_utils, AnalysisConfiguration
 log = Logger(__name__)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Exports contacts wo sent 'Non relevant' messages"
-                                                 "in the target week question")
+    parser = argparse.ArgumentParser(description="Exports weekly ad contacts from analysis Traced Data")
 
     parser.add_argument("google_cloud_credentials_file_path", metavar="google-cloud-credentials-file-path",
                         help="Path to a Google Cloud service account credentials file to use to access the "
@@ -41,6 +40,7 @@ if __name__ == "__main__":
     uuid_table = pipeline_config.uuid_table.init_uuid_table_client(google_cloud_credentials_file_path)
 
     uuids = set()
+    opt_out_uuids = set()
     for path in traced_data_paths:
         log.info(f"Loading previous traced data from file '{path}'...")
         with open(path) as f:
@@ -49,6 +49,7 @@ if __name__ == "__main__":
 
         for td in data:
             if td["consent_withdrawn"] == Codes.TRUE:
+                opt_out_uuids.add(td["participant_uuid"])
                 continue
 
             for analysis_dataset_config in pipeline_config.analysis.dataset_configurations:
@@ -91,6 +92,26 @@ if __name__ == "__main__":
             writer.writerow({
                 f"URN:{namespace}": value
             })
-
         log.info(f"Wrote {len(nc_urns)} urns to {csv_output_file_path}")
 
+    log.info(f"Converting {len(opt_out_uuids)} Opt out uuids to urns...")
+    opt_out_urn_lut = uuid_table.uuid_to_data_batch(opt_out_uuids)
+    opt_out_urns = {opt_out_urn_lut[uuid] for uuid in opt_out_uuids}
+    log.info(f"Converted {len(opt_out_uuids)} to {len(nc_urns)}")
+
+    # Export contacts CSV
+    log.warning(f"Exporting {len(opt_out_urns)} urns to {csv_output_file_path}...")
+    csv_output_file_path = f'{csv_output_dir_path}/{target_raw_dataset}_opt_out_contacts.csv'
+    with open(csv_output_file_path, "w") as f:
+        urn_namespaces = {urn.split(":")[0] for urn in opt_out_urns}
+        headers = [f"URN:{namespace}" for namespace in urn_namespaces]
+
+        writer = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
+        writer.writeheader()
+        for urn in opt_out_urns:
+            namespace = urn.split(":")[0]
+            value = urn.split(":")[1]
+            writer.writerow({
+                f"URN:{namespace}": value
+            })
+        log.info(f"Wrote {len(opt_out_urns)} urns to {csv_output_file_path}")
