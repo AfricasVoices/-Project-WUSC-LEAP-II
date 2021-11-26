@@ -38,7 +38,14 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "gender", "gender"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"),
 
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01")
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e05", "leap_s02e05"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e06", "leap_s02e06"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e07", "leap_s02e07"),
+                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e08", "leap_s02e08")
                 ]
             )
         )
@@ -96,7 +103,6 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     ],
                     ws_code_string_value="kakuma_disabled"
                 ),
-
                 CodaDatasetConfiguration(
                     coda_dataset_id="LEAP_s02e01",
                     engagement_db_dataset="leap_s02e01",
@@ -104,6 +110,62 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                         CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e01"), auto_coder=None)
                     ],
                     ws_code_string_value="leap_s02e01"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e02",
+                    engagement_db_dataset="leap_s02e02",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e02"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e02"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e03",
+                    engagement_db_dataset="leap_s02e03",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e03"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e03"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e04",
+                    engagement_db_dataset="leap_s02e04",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e04"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e04"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e05",
+                    engagement_db_dataset="leap_s02e05",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e05"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e05"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e06",
+                    engagement_db_dataset="leap_s02e06",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e06"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e06"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e07",
+                    engagement_db_dataset="leap_s02e07",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e07"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e07"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02e08",
+                    engagement_db_dataset="leap_s02e08",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e08"), auto_coder=None)
+                    ],
+                    ws_code_string_value="leap_s02e08"
                 ),
             ],
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
@@ -123,6 +185,83 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e01"),
                         analysis_dataset="s02e01"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e02"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e02_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e02"),
+                        analysis_dataset="s02e02"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e03"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e03_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e03"),
+                        analysis_dataset="s02e03"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e04"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e04_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e04"),
+                        analysis_dataset="s02e04"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e05"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e05_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e05"),
+                        analysis_dataset="s02e05"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e06"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e06_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e06"),
+                        analysis_dataset="s02e06"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e07"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e07_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e07"),
+                        analysis_dataset="s02e07"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02e08"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="s02e08_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("s02e08"),
+                        analysis_dataset="s02e08"
                     )
                 ]
             ),
