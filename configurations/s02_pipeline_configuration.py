@@ -39,13 +39,13 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"),
 
                     FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e05", "leap_s02e05"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e06", "leap_s02e06"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e07", "leap_s02e07"),
-                    FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e08", "leap_s02e08")
+                    FlowResultConfiguration("wusc_leap_s02e02_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
+                    FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
+                    FlowResultConfiguration("wusc_leap_s02e04_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
+                    FlowResultConfiguration("wusc_leap_s02e05_kalobeyei_activation", "rqa_s02e05", "leap_s02e05"),
+                    FlowResultConfiguration("wusc_leap_s02e06_kalobeyei_activation", "rqa_s02e06", "leap_s02e06"),
+                    FlowResultConfiguration("wusc_leap_s02e07_kalobeyei_activation", "rqa_s02e07", "leap_s02e07"),
+                    FlowResultConfiguration("wusc_leap_s02e08_kalobeyei_activation", "rqa_s02e08", "leap_s02e08")
                 ]
             )
         )
