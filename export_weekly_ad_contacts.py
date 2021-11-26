@@ -6,6 +6,9 @@ from core_data_modules.cleaners import Codes
 from core_data_modules.logging import Logger
 from core_data_modules.traced_data.io import TracedDataJsonIO
 
+from src.engagement_db_to_analysis.membership_group import (get_membership_groups_data)
+
+
 log = Logger(__name__)
 
 if __name__ == "__main__":
@@ -20,6 +23,9 @@ if __name__ == "__main__":
     parser.add_argument("traced_data_paths", metavar="traced-data-paths", nargs="+",
                         help="Paths to the traced data files (either messages or individuals) to extract phone "
                              "numbers from")
+    parser.add_argument("membership_group_dir_path", metavar="membership-group-dir-path", nargs="+",
+                        help="Path to directory containing de-identified membership groups CSVs containing membership"
+                             "groups data stored as `avf-participant-uuid` column.")
     parser.add_argument("csv_output_file_path", metavar="csv-output-file-path",
                         help="Path to a CSV file to write the contacts from the locations of interest to. "
                              "Exported file is in a format suitable for direct upload to Rapid Pro")
@@ -29,6 +35,7 @@ if __name__ == "__main__":
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_config = importlib.import_module(args.configuration_module).PIPELINE_CONFIGURATION
     traced_data_paths = args.traced_data_paths
+    membership_group_dir_path= args.membership_group_dir_path
     csv_output_file_path = args.csv_output_file_path
 
     pipeline = pipeline_config.pipeline_name
@@ -48,14 +55,37 @@ if __name__ == "__main__":
                 opt_out_uuids.add(td["participant_uuid"])
 
             uuids.add(td["participant_uuid"])
+
+    #If available, add consented membership group uids to advert uuids
+    if pipeline_config.analysis.membership_group_configuration is not None:
+        membership_group_csv_urls = \
+            pipeline_config.analysis.membership_group_configuration.membership_group_csv_urls.items()
+
+        membership_groups_data = get_membership_groups_data(google_cloud_credentials_file_path,
+                                                            membership_group_csv_urls, membership_group_dir_path)
+
+        consented_membership_groups_uuids = 0
+        opt_out_membership_groups_uuids = 0
+        for uuid in membership_groups_data.values():
+            if uuid in opt_out_uuids:
+                opt_out_membership_groups_uuids += 1
+                continue
+
+            uuids.add(uuid)
+            consented_membership_groups_uuids +=1
+
+        log.info(f"Found {opt_out_membership_groups_uuids} membership_groups_uuids who have opted out")
+        log.info(f"Added {consented_membership_groups_uuids} membership_groups_uuids to advert uuids")
+
+
     log.info(f"Loaded {len(uuids)} uuids from TracedData (of which {len(opt_out_uuids)} uuids withdrew consent)")
-    uuids = uuids - opt_out_uuids
+    advert_uuids = uuids - opt_out_uuids
     log.info(f"Proceeding with {len(uuids)} opt-in uuids")
 
     log.info(f"Converting {len(uuids)} uuids to urns...")
-    urn_lut = uuid_table.uuid_to_data_batch(uuids)
-    urns = {urn_lut[uuid] for uuid in uuids}
-    log.info(f"Converted {len(uuids)} to {len(urns)}")
+    urn_lut = uuid_table.uuid_to_data_batch(advert_uuids)
+    urns = {urn_lut[uuid] for uuid in advert_uuids}
+    log.info(f"Converted {len(advert_uuids)} to {len(urns)}")
 
     # Export contacts CSV
     log.warning(f"Exporting {len(urns)} urns to {csv_output_file_path}...")
