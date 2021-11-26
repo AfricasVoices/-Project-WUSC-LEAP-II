@@ -5,7 +5,6 @@ import importlib
 from core_data_modules.cleaners import Codes
 from core_data_modules.logging import Logger
 from core_data_modules.traced_data.io import TracedDataJsonIO
-from core_data_modules.analysis import analysis_utils, AnalysisConfiguration
 
 log = Logger(__name__)
 
@@ -21,8 +20,6 @@ if __name__ == "__main__":
     parser.add_argument("traced_data_paths", metavar="traced-data-paths", nargs="+",
                         help="Paths to the traced data files (either messages or individuals) to extract phone "
                              "numbers from")
-    parser.add_argument("target_raw_dataset", metavar="target-raw-dataset",
-                        help="Target raw dataset name to check for message relevance from")
     parser.add_argument("csv_output_dir_path", metavar="csv-output-file-path",
                         help="Path to a CSV file to write the contacts from the locations of interest to. "
                              "Exported file is in a format suitable for direct upload to Rapid Pro")
@@ -32,7 +29,6 @@ if __name__ == "__main__":
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_config = importlib.import_module(args.configuration_module).PIPELINE_CONFIGURATION
     traced_data_paths = args.traced_data_paths
-    target_raw_dataset = args.target_raw_dataset
     csv_output_dir_path = args.csv_output_dir_path
 
     pipeline = pipeline_config.pipeline_name
