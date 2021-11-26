@@ -27,10 +27,11 @@ def get_membership_groups_data(google_cloud_credentials_file_path, membership_gr
         for i, membership_group_csv_url in enumerate(membership_group_csv_url):
             membership_group_csv = membership_group_csv_url.split("/")[-1]
 
+            log.info(f"Downloading {membership_group_csv} from g-cloud...")
             export_file_path = f'{membership_group_dir_path}/{membership_group_csv}'
 
             if os.path.exists(export_file_path):
-                log.info(f"File '{membership_group_csv}' already exists, skipping download")
+                log.info(f"File '{membership_group_csv}' already exists, skipping download..")
                 continue
 
             try:
