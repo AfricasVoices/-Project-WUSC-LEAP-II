@@ -79,7 +79,6 @@ if __name__ == "__main__":
         log.info(f"Found {opt_out_membership_groups_uuids} membership_groups_uuids who have opted out")
         log.info(f"Added {consented_membership_groups_uuids} membership_groups_uuids to advert uuids")
 
-
     log.info(f"Loaded {len(uuids)} uuids  (of which {len(opt_out_uuids)} uuids withdrew consent)")
     advert_uuids = uuids - opt_out_uuids
     log.info(f"Proceeding with {len(advert_uuids)} opt-in uuids")
