@@ -107,9 +107,10 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             drive_dir="leap_s02_analysis_outputs"
         ),
         membership_group_configuration=MembershipGroupConfiguration(
-            membership_group_csv_urls={"listening_group": [
-                "gs://avf-project-datasets/2021/WUSC-LEAP/leap_s02_listening_group.csv"
-            ]
+            membership_group_csv_urls={
+                "listening_group": [
+                    "gs://avf-project-datasets/2021/WUSC-LEAP/leap_s02_listening_group.csv"
+                ]
             },
         ),
         dataset_configurations=[
