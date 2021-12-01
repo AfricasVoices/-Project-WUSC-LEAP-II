@@ -3,7 +3,78 @@
   "Name": "LEAP S02E02",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-6d2a8ce5",
+      "CodeType": "Normal",
+      "DisplayText": "need for awareness creation",
+      "NumericValue": 1,
+      "StringValue": "need_for_awareness_creation",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-8a485d0e",
+      "CodeType": "Normal",
+      "DisplayText": "are considered weak",
+      "NumericValue": 2,
+      "StringValue": "are_considered_weak",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-20552cbd",
+      "CodeType": "Normal",
+      "DisplayText": "negative cultural beliefs",
+      "NumericValue": 3,
+      "StringValue": "negative_cultural_beliefs",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-40c60ab9",
+      "CodeType": "Normal",
+      "DisplayText": "support girls",
+      "NumericValue": 4,
+      "StringValue": "support_girls",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-6c27ec24",
+      "CodeType": "Normal",
+      "DisplayText": "encourage and advise them",
+      "NumericValue": 5,
+      "StringValue": "encourage_and_advise_them",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-5e599acc",
+      "CodeType": "Normal",
+      "DisplayText": "take them to school",
+      "NumericValue": 6,
+      "StringValue": "take_them_to_school",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-316c0ee9",
+      "CodeType": "Normal",
+      "DisplayText": "men belittle women",
+      "NumericValue": 7,
+      "StringValue": "men_belittle_women",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-631a3815",
+      "CodeType": "Normal",
+      "DisplayText": "gender inequality",
+      "NumericValue": 8,
+      "StringValue": "gender_inequality",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-593ac583",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 9,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
