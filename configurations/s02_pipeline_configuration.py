@@ -176,6 +176,13 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             credentials_file_url="gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
             drive_dir="leap_s02_analysis_outputs"
         ),
+        membership_group_configuration=MembershipGroupConfiguration(
+            membership_group_csv_urls={
+                "listening_group": [
+                    "gs://avf-project-datasets/2021/WUSC-LEAP/leap_s02_listening_group.csv"
+                ]
+            },
+        ),
         dataset_configurations=[
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["leap_s02e01"],

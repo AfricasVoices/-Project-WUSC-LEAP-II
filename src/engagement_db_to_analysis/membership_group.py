@@ -11,9 +11,9 @@ from core_data_modules.traced_data import Metadata
 log = Logger(__name__)
 
 
-def get_membership_groups_csvs(google_cloud_credentials_file_path, membership_group_csv_urls, membership_group_dir_path):
+def get_membership_groups_data(google_cloud_credentials_file_path, membership_group_csv_urls, membership_group_dir_path):
     """
-    Downloads de-identified membership groups CSVs from g-cloud.
+    Downloads de-identified membership groups CSVs from g-cloud and groups them by their group identity.
     :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
                                                access the credentials bucket.
     :type google_cloud_credentials_file_path: str
@@ -27,10 +27,11 @@ def get_membership_groups_csvs(google_cloud_credentials_file_path, membership_gr
         for i, membership_group_csv_url in enumerate(membership_group_csv_url):
             membership_group_csv = membership_group_csv_url.split("/")[-1]
 
+            log.info(f"Downloading {membership_group_csv} from g-cloud...")
             export_file_path = f'{membership_group_dir_path}/{membership_group_csv}'
 
             if os.path.exists(export_file_path):
-                log.info(f"File '{membership_group_csv}' already exists, skipping download")
+                log.info(f"File '{membership_group_csv}' already exists, skipping download..")
                 continue
 
             try:
@@ -43,24 +44,8 @@ def get_membership_groups_csvs(google_cloud_credentials_file_path, membership_gr
             except NotFound:
                 log.warning(f"{membership_group_csv}' not found in google cloud, skipping download")
 
-
-def tag_membership_groups_participants(user, column_view_traced_data, membership_group_csv_urls, membership_group_dir_path):
-    """
-    This tags uids who participated in projects membership groups.
-    :param user: Identifier of the user running this program, for TracedData Metadata.
-    :type user: str
-    :param column_view_traced_data: Messages/Participants TracedData organised into column-view format.
-    :type: list of core_data_modules.traced_data.TracedData
-    :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
-                        stored as `avf-phone-uuid` and `Name` columns.
-    :type membership_group_dir_path: str
-    :param membership_group_csv_urls: Dict of membership group name to group g-cloud csv url(s).
-    :type membership_group_csv_urls: Dict
-    """
-
-    membership_group_participants = dict() # of group name to group avf-participant-uuid(s)
-
     # Read listening group participants CSVs and add their uids to the respective group
+    membership_group_participants = dict()  # of group name to group avf-participant-uuid(s)
     for membership_group, csv_urls in membership_group_csv_urls:
         membership_group_participants[membership_group] = set()
         for i, csv_url in enumerate(csv_urls):
@@ -76,9 +61,26 @@ def tag_membership_groups_participants(user, column_view_traced_data, membership
             else:
                 log.warning(f"{membership_group_csv} does not exist in {membership_group_dir_path} skipping!")
 
-        log.info(f'Loaded {len(membership_group_participants[membership_group])} {membership_group} uids')
+        log.info(f'Loaded {len(membership_group_participants[membership_group])} {membership_group} participant uids')
+
+    return membership_group_participants
+
+
+def tag_membership_groups_participants(user, column_view_traced_data, google_cloud_credentials_file_path,
+                                                               membership_group_csv_urls, membership_group_dir_path):
+    """
+    This tags uids who participated in projects membership groups.
+    :param user: Identifier of the user running this program, for TracedData Metadata.
+    :type user: str
+    :param column_view_traced_data: Messages/Participants TracedData organised into column-view format.
+    :type: list of core_data_modules.traced_data.TracedData
+    """
 
     # Tag a participant based on the membership group type they belong to
+
+    membership_group_participants = get_membership_groups_data(google_cloud_credentials_file_path,
+                                                               membership_group_csv_urls, membership_group_dir_path)
+
     for td in column_view_traced_data:
         membership_group_participation_data = dict()
 
