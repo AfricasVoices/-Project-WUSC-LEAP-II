@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
             uuids.add(td["participant_uuid"])
 
-    #If available, add consented membership group uids to advert uuids
+    # If available, add consented membership group uids to advert uuids
     if pipeline_config.analysis.membership_group_configuration is not None:
         log.info(f"Adding consented membership group uids to advert uuids ")
         membership_group_csv_urls = \
