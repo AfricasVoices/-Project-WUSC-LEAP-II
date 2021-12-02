@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3768c79ef5cf85f146f36f3105032b053f9b4d4e4edd53a2b08ddbad71d81e1e"
+            "sha256": "19f78ae23b8b9c6ac52f4e0c3db9a26eae8b52ed3387984907f3951b6c3e81ff"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -81,15 +81,15 @@
         "codav2pythonclient": {
             "editable": true,
             "git": "https://www.github.com/AfricasVoices/CodaV2PythonClient",
-            "ref": "e9481c82357186967ad70cdf5fc2e24d3cdf2e55"
+            "ref": "3d73aac0252c0ceec14d8a2210d2a677b2e4bcc4"
         },
         "coredatamodules": {
             "editable": true,
             "extras": [
                 "mapping"
             ],
-            "git": "https://github.com/AfricasVoices/CoreDataModules",
-            "ref": "b5fa4597d7611a19c0e4cd2daf6076c97c486c63"
+            "git": "https://www.github.com/AfricasVoices/CoreDataModules",
+            "ref": "abc272f22eb2099b937372b180cb4dbb4f15e488"
         },
         "cycler": {
             "hashes": [
@@ -150,18 +150,18 @@
         },
         "google-api-python-client": {
             "hashes": [
-                "sha256:3f64a5eee6fa03ab51806dccf48e342fda83fea60c290518c6a2dfdbf2de9efd",
-                "sha256:d9f1539db48abfea3d7d65e4cfba258a5a95c901e99fb49c7cfe4de99921a757"
+                "sha256:1449c6941afabc32a274be54d17f262615e3a970114c386b62986e29618623f3",
+                "sha256:619fe50155e73342c17aba4bbb2a08be8ce6ae00b795af383de7d6616b485c94"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2.31.0"
+            "version": "==2.32.0"
         },
         "google-auth": {
             "hashes": [
                 "sha256:a348a50b027679cb7dae98043ac8dbcc1d7951f06d8387496071a1e05a2465c0",
                 "sha256:d83570a664c10b97a1dc6f8df87e5fdfff012f48f62be131e449c20dfc32630e"
             ],
-            "markers": "python_version >= '3.6'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
             "version": "==2.3.3"
         },
         "google-auth-httplib2": {
