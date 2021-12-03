@@ -126,9 +126,9 @@ def _get_project_messages_from_engagement_db(analysis_dataset_configurations, en
                         # this dataset before this initial fetch.
                         cache.set_latest_message_timestamp(f"{engagement_db_dataset}_ws", latest_message_timestamp)
 
-            # Export project engagement_dataset files
-            if len(messages) > 0:
-                cache.set_messages(engagement_db_dataset, messages)
+                # Export project engagement_dataset files
+                if len(messages) > 0:
+                    cache.set_messages(engagement_db_dataset, messages)
 
     return engagement_db_dataset_messages_map
 
@@ -196,11 +196,11 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
         membership_group_csv_urls = pipeline_config.analysis.membership_group_configuration.membership_group_csv_urls.items()
 
         log.info("Tagging membership group participants to messages_by_column traced data...")
-        tag_membership_groups_participants(user, google_cloud_credentials_file_path, messages_by_column,
+        tag_membership_groups_participants(user, messages_by_column, google_cloud_credentials_file_path, 
                                            membership_group_csv_urls, membership_group_dir_path)
 
         log.info("Tagging membership group participants to participants_by_column traced data...")
-        tag_membership_groups_participants(user, participants_by_column,
+        tag_membership_groups_participants(user, participants_by_column, google_cloud_credentials_file_path, 
                                            membership_group_csv_urls, membership_group_dir_path)
 
     export_analysis_file(messages_by_column, pipeline_config, f"{output_dir}/messages.csv", export_timestamps=True)
