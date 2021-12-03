@@ -179,7 +179,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         membership_group_configuration=MembershipGroupConfiguration(
             membership_group_csv_urls={
                 "listening_group": [
-                    "gs://avf-project-datasets/2021/WUSC-LEAP/leap_s02_listening_group.csv"
+                    "gs://avf-project-datasets/2021/WUSC-LEAP/leap_s02_listening_group.csv",
+                    "gs://avf-project-datasets/2021/WUSC-LEAP/wusc_leap_kalobeyei_s02e02_listening_group.csv"
                 ]
             },
         ),
