@@ -3,7 +3,78 @@
   "Name": "LEAP S02E03",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-029b0be3",
+      "CodeType": "Normal",
+      "DisplayText": "financial support",
+      "NumericValue": 1,
+      "StringValue": "financial_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e84bac1b",
+      "CodeType": "Normal",
+      "DisplayText": "emphasise importance of education",
+      "NumericValue": 2,
+      "StringValue": "emphasise_importance_of_education",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-ae0644a3",
+      "CodeType": "Normal",
+      "DisplayText": "learning resources or facilities",
+      "NumericValue": 3,
+      "StringValue": "learning_resources_or_facilities",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-7da10f64",
+      "CodeType": "Normal",
+      "DisplayText": "issue certificates",
+      "NumericValue": 4,
+      "StringValue": "issue_certificates",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-08767fc1",
+      "CodeType": "Normal",
+      "DisplayText": "encourage and provide guidance",
+      "NumericValue": 5,
+      "StringValue": "encourage_and_provide_guidance",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-acf52f68",
+      "CodeType": "Normal",
+      "DisplayText": "need for more knowledge and skills",
+      "NumericValue": 6,
+      "StringValue": "need_for_more_knowledge_and_skills",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-de995a3c",
+      "CodeType": "Normal",
+      "DisplayText": "provision of basic needs",
+      "NumericValue": 7,
+      "StringValue": "provision_of_basic_needs",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-152524d7",
+      "CodeType": "Normal",
+      "DisplayText": "chore burden",
+      "NumericValue": 8,
+      "StringValue": "chore_burden",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f29e4856",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 9,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
