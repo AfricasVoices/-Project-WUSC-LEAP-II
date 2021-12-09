@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "339778c5fecbadbb819a6e88fe3f3d42813f2dbaa49f8ca2a6e1d9914c3b38ae"
+            "sha256": "36a3f82adf8badc9fa1594de7dd4eadbb79a59c986826e7eccaf3d7257546523"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -81,14 +81,14 @@
         "codav2pythonclient": {
             "editable": true,
             "git": "https://www.github.com/AfricasVoices/CodaV2PythonClient",
-            "ref": "ed7166738d259a4cbb107df0f90b95af44ae2da0"
+            "ref": "55d337d5a0913e213d8a387bb14421ec8bab825e"
         },
         "coredatamodules": {
             "editable": true,
             "extras": [
                 "mapping"
             ],
-            "git": "https://www.github.com/AfricasVoices/CoreDataModules",
+            "git": "https://github.com/AfricasVoices/CoreDataModules",
             "ref": "05df823deadbda10d586c4a045949e788083aa82"
         },
         "cycler": {
@@ -138,6 +138,9 @@
             "version": "==0.10.2"
         },
         "google-api-core": {
+            "extras": [
+                "grpc"
+            ],
             "hashes": [
                 "sha256:538cd927bfe0f7c63bc1eb5fcadeeeb52f90bb29117dea87ae8cae48953d4c60",
                 "sha256:65fe1d9d8dde7a5ddc43d5cc134560c2a76b1a26c9f70c3c24f13b7910e89e10"
@@ -158,7 +161,7 @@
                 "sha256:a348a50b027679cb7dae98043ac8dbcc1d7951f06d8387496071a1e05a2465c0",
                 "sha256:d83570a664c10b97a1dc6f8df87e5fdfff012f48f62be131e449c20dfc32630e"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
+            "markers": "python_version >= '3.6'",
             "version": "==2.3.3"
         },
         "google-auth-httplib2": {
