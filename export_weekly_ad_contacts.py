@@ -23,7 +23,7 @@ if __name__ == "__main__":
     parser.add_argument("traced_data_paths", metavar="traced-data-paths", nargs="+",
                         help="Paths to the traced data files (either messages or individuals) to extract phone "
                              "numbers from")
-    parser.add_argument("membership_group_dir_path", metavar="membership-group-dir-path", nargs="+",
+    parser.add_argument("membership_group_dir_path", metavar="membership-group-dir-path",
                         help="Path to directory containing de-identified membership groups CSVs containing membership"
                              "groups data stored as `avf-participant-uuid` column.")
     parser.add_argument("csv_output_file_path", metavar="csv-output-file-path",
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_config = importlib.import_module(args.configuration_module).PIPELINE_CONFIGURATION
     traced_data_paths = args.traced_data_paths
-    membership_group_dir_path= args.membership_group_dir_path
+    membership_group_dir_path = args.membership_group_dir_path
     csv_output_file_path = args.csv_output_file_path
 
     pipeline = pipeline_config.pipeline_name
