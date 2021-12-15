@@ -21,6 +21,7 @@ def get_membership_groups_data(google_cloud_credentials_file_path, membership_gr
     :type membership_group_csv_urls: Dict
     :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
                         stored as `avf-participant-uuid` column.
+    :type: membership_group_dir_path: str
     """
 
     for membership_group, membership_group_csv_url in membership_group_csv_urls:
@@ -29,10 +30,6 @@ def get_membership_groups_data(google_cloud_credentials_file_path, membership_gr
 
             log.info(f"Downloading {membership_group_csv} from g-cloud...")
             export_file_path = f'{membership_group_dir_path}/{membership_group_csv}'
-
-            if os.path.exists(export_file_path):
-                log.info(f"File '{membership_group_csv}' already exists, skipping download..")
-                continue
 
             try:
                 log.info(f"Saving '{membership_group_csv}' to directory f'{membership_group_dir_path}...")
