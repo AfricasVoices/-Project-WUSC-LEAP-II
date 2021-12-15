@@ -3,7 +3,110 @@
   "Name": "LEAP S02E04",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-7557ba8b",
+      "CodeType": "Normal",
+      "DisplayText": "lack of support",
+      "NumericValue": 1,
+      "StringValue": "lack_of_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-5cb8a29b",
+      "CodeType": "Normal",
+      "DisplayText": "lack of financial resources",
+      "NumericValue": 2,
+      "StringValue": "lack_of_financial_resources",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-41b86999",
+      "CodeType": "Normal",
+      "DisplayText": "discrimination and exclusion",
+      "NumericValue": 3,
+      "StringValue": "discrimination_and_exclusion",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-14663457",
+      "CodeType": "Normal",
+      "DisplayText": "cultural restrictions",
+      "NumericValue": 4,
+      "StringValue": "cultural_restrictions",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-3b2f6b2b",
+      "CodeType": "Normal",
+      "DisplayText": "distance of training centres",
+      "NumericValue": 5,
+      "StringValue": "distance_of_training_centres",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-650ae62d",
+      "CodeType": "Normal",
+      "DisplayText": "lack of awareness",
+      "NumericValue": 6,
+      "StringValue": "lack_of_awareness",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-7f833109",
+      "CodeType": "Normal",
+      "DisplayText": "house chores and family responsibilities",
+      "NumericValue": 7,
+      "StringValue": "house_chores_and_family_responsibilities",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-fc833eeb",
+      "CodeType": "Normal",
+      "DisplayText": "women like hair dressing",
+      "NumericValue": 8,
+      "StringValue": "women_like_hair_dressing",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-a6dd89ec",
+      "CodeType": "Normal",
+      "DisplayText": "lack of education and illiteracy",
+      "NumericValue": 9,
+      "StringValue": "lack_of_education_and_illiteracy",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2678cd2f",
+      "CodeType": "Normal",
+      "DisplayText": "negative attitude",
+      "NumericValue": 10,
+      "StringValue": "negative_attitude",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e2bf799a",
+      "CodeType": "Normal",
+      "DisplayText": "lack of vocational training centres",
+      "NumericValue": 11,
+      "StringValue": "lack_of_vocational_training_centres",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-60cf0d4c",
+      "CodeType": "Normal",
+      "DisplayText": "hair dressing is considered easier or simpler",
+      "NumericValue": 12,
+      "StringValue": "hair_dressing_is_considered_easier_or_simpler",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-d3235524",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 13,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
