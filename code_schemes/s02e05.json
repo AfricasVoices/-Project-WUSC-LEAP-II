@@ -3,7 +3,54 @@
   "Name": "LEAP S02E05",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-1906d2dc",
+      "CodeType": "Normal",
+      "DisplayText": "financial support",
+      "NumericValue": 1,
+      "StringValue": "financial_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-425f8c44",
+      "CodeType": "Normal",
+      "DisplayText": "access to loans and grants",
+      "NumericValue": 2,
+      "StringValue": "access_to_loans_and_grants",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-5a2fb7fa",
+      "CodeType": "Normal",
+      "DisplayText": "availability of business space or structure",
+      "NumericValue": 3,
+      "StringValue": "availability_of_business_space_or_structure",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-46bbb306",
+      "CodeType": "Normal",
+      "DisplayText": "training, knowledge and skills",
+      "NumericValue": 4,
+      "StringValue": "training_knowledge_and_skills",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-850d4235",
+      "CodeType": "Normal",
+      "DisplayText": "support",
+      "NumericValue": 5,
+      "StringValue": "support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-8b7b452a",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 6,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
