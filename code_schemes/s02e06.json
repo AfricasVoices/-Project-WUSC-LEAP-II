@@ -3,7 +3,78 @@
   "Name": "LEAP S02E06",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-ea209a8f",
+      "CodeType": "Normal",
+      "DisplayText": "lack of skills and knowledge",
+      "NumericValue": 1,
+      "StringValue": "lack_of_skills_and_knowledge",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-61fcd4be",
+      "CodeType": "Normal",
+      "DisplayText": "lack of financial resources",
+      "NumericValue": 2,
+      "StringValue": "lack_of_financial_resources",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-0c3d48c5",
+      "CodeType": "Normal",
+      "DisplayText": "culture and beliefs",
+      "NumericValue": 3,
+      "StringValue": "culture_and_beliefs",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-6de1468e",
+      "CodeType": "Normal",
+      "DisplayText": "lack of awareness and information",
+      "NumericValue": 4,
+      "StringValue": "lack_of_awareness_and_information",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-dc01d481",
+      "CodeType": "Normal",
+      "DisplayText": "poverty",
+      "NumericValue": 5,
+      "StringValue": "poverty",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-007e1269",
+      "CodeType": "Normal",
+      "DisplayText": "gender inequality and discrimination",
+      "NumericValue": 6,
+      "StringValue": "gender_inequality_and_discrimination",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-49a7f8db",
+      "CodeType": "Normal",
+      "DisplayText": "lack of support",
+      "NumericValue": 7,
+      "StringValue": "lack_of_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-b6547a2e",
+      "CodeType": "Normal",
+      "DisplayText": "unemployment",
+      "NumericValue": 8,
+      "StringValue": "unemployment",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-170c6430",
+      "CodeType": "Normal",
+      "DisplayText": "other",
+      "NumericValue": 9,
+      "StringValue": "other",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
