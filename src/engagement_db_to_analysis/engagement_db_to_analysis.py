@@ -13,6 +13,7 @@ from src.engagement_db_to_analysis.column_view_conversion import (convert_to_mes
                                                                   convert_to_participants_column_format)
 from src.engagement_db_to_analysis.traced_data_filters import filter_messages
 from src.engagement_db_to_analysis.membership_group import (tag_membership_groups_participants)
+from src.engagement_db_to_analysis.rapid_pro_advert_functions import sync_advert_contacts_to_rapidpro
 
 log = Logger(__name__)
 
@@ -203,6 +204,7 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
         tag_membership_groups_participants(user, participants_by_column, google_cloud_credentials_file_path, 
                                            membership_group_csv_urls, membership_group_dir_path)
 
+    
     export_analysis_file(messages_by_column, pipeline_config, f"{output_dir}/messages.csv", export_timestamps=True)
     export_analysis_file(participants_by_column, pipeline_config, f"{output_dir}/participants.csv")
 
@@ -227,3 +229,6 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
         google_drive_upload.upload_all_files_in_dir(
             f"{output_dir}/automated-analysis", f"{drive_dir}/automated-analysis", recursive=True
         )
+
+    sync_advert_contacts_to_rapidpro(participants_by_column, pipeline_config.analysis,
+                         google_cloud_credentials_file_path, membership_group_dir_path)
