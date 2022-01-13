@@ -35,6 +35,7 @@ class AnalysisDatasetConfiguration:
     engagement_db_datasets: [str]
     dataset_type: DatasetTypes
     raw_dataset: str
+    dataset_name: str
     coding_configs: [CodingConfiguration]
 
 
