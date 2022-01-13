@@ -3,7 +3,94 @@
   "Name": "LEAP S02E07",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-80d4341f",
+      "CodeType": "Normal",
+      "DisplayText": "yes, no reason",
+      "NumericValue": 10,
+      "StringValue": "yes_no_reason",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e3280f51",
+      "CodeType": "Normal",
+      "DisplayText": "no, no reason",
+      "NumericValue": 11,
+      "StringValue": "no_no_reason",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2daca137",
+      "CodeType": "Normal",
+      "DisplayText": "yes, men are supportive of women",
+      "NumericValue": 1,
+      "StringValue": "yes_men_are_supportive_of_women",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-c7b0050a",
+      "CodeType": "Normal",
+      "DisplayText": "yes, provide them with advice",
+      "NumericValue": 2,
+      "StringValue": "yes_provide_them_with_advice",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f6b54987",
+      "CodeType": "Normal",
+      "DisplayText": "yes, financial support",
+      "NumericValue": 3,
+      "StringValue": "yes_financial_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-abf983af",
+      "CodeType": "Normal",
+      "DisplayText": "no, men don`t support women",
+      "NumericValue": 4,
+      "StringValue": "no_men_dont_support_women",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2706f86d",
+      "CodeType": "Normal",
+      "DisplayText": "no, men want women to stay at home",
+      "NumericValue": 5,
+      "StringValue": "no_men_want_women_to_stay_at_home",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-1112d879",
+      "CodeType": "Normal",
+      "DisplayText": "no, they view women as inferior",
+      "NumericValue": 6,
+      "StringValue": "no_they_view_women_as_inferior",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-35e437a1",
+      "CodeType": "Normal",
+      "DisplayText": "no, men don`t trust women",
+      "NumericValue": 7,
+      "StringValue": "no_men_dont_trust_women",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-d62790a0",
+      "CodeType": "Normal",
+      "DisplayText": "no, they ignore women",
+      "NumericValue": 8,
+      "StringValue": "no_they_ignore_women",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-704403f6",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 9,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
