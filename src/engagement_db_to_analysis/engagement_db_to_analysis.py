@@ -204,7 +204,6 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
         tag_membership_groups_participants(user, participants_by_column, google_cloud_credentials_file_path, 
                                            membership_group_csv_urls, membership_group_dir_path)
 
-    
     export_analysis_file(messages_by_column, pipeline_config, f"{output_dir}/messages.csv", export_timestamps=True)
     export_analysis_file(participants_by_column, pipeline_config, f"{output_dir}/participants.csv")
 
