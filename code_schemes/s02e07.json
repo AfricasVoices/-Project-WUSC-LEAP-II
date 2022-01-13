@@ -4,6 +4,22 @@
   "Version": "0.0.0.1",
   "Codes": [
     {
+      "CodeID": "code-80d4341f",
+      "CodeType": "Normal",
+      "DisplayText": "yes, no_reason",
+      "NumericValue": 10,
+      "StringValue": "yes_no_reason",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e3280f51",
+      "CodeType": "Normal",
+      "DisplayText": "no, no_reason",
+      "NumericValue": 11,
+      "StringValue": "no_no_reason",
+      "VisibleInCoda": true
+    },
+    {
       "CodeID": "code-2daca137",
       "CodeType": "Normal",
       "DisplayText": "yes, men are supportive of women",
