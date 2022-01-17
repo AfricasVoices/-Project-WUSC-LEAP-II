@@ -28,7 +28,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         RapidProSource(
             rapid_pro=RapidProClientConfiguration(
                 domain="textit.com",
-                token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
+                token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt",
             ),
             sync_config=RapidProToEngagementDBConfiguration(
                 flow_result_configurations=[
@@ -170,6 +170,19 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             ],
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset"),
             project_users_file_url="gs://avf-project-datasets/2021/WUSC-LEAP/coda_users.json"
+        )
+    ),
+    rapid_pro_target=RapidProTarget(
+        rapid_pro=RapidProClientConfiguration(
+            domain="textit.com",
+            token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
+        ),
+        sync_config=EngagementDBToRapidProConfiguration(
+        consent_withdrawn_dataset=DatasetConfiguration(
+                engagement_db_datasets=[], #TODO: to be updated
+                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn",
+                                                     label="Yes")
+            ),
         )
     ),
     analysis=AnalysisConfiguration(
