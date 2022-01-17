@@ -1,6 +1,3 @@
-import argparse
-import csv
-import importlib
 
 from core_data_modules.cleaners import Codes
 from core_data_modules.logging import Logger
@@ -87,20 +84,22 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
                                                  "about_conversation", "gratitude", "question", "NC"]:
                             non_relevant_uuids[analysis_dataset_config.dataset_name].add(participant_td["participant_uuid"])
 
-        return non_relevant_uuids
+    return non_relevant_uuids
 
-def sync_advert_contacts_to_rapidpro(participants_by_column, pipeline_config,
+def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                          google_cloud_credentials_file_path, membership_group_dir_path):
 
-    uuid_table = pipeline_config.uuid_table.init_uuid_table_client(google_cloud_credentials_file_path)
-
     opt_out_uuids, weekly_advert_uuids = _generate_weekly_advert_and_opt_out_uuids(participants_by_column,
-                                                                                pipeline_config.analysis_config,
+                                                                                pipeline_config.analysis,
                          google_cloud_credentials_file_path, membership_group_dir_path)
 
     # Update consent_withdrawn contact field for opt_out contacts
     opt_out_urns = _convert_uuids_to_urns(opt_out_uuids, uuid_table)
     log.info(f'Updating consent_withdrawn contact_field for {len(opt_out_urns)} opt_out contacts ')
+    consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field
+    for urn in opt_out_urns:
+        rapid_pro.update_contact(urn, contact_fields= {consent_withdrawn_contact_field.key:
+                                                           consent_withdrawn_contact_field.label})
 
     #Create/Update weekly advert contacts group to rapid_pro
     weekly_advert_urns = _convert_uuids_to_urns(weekly_advert_uuids, uuid_table)
@@ -108,7 +107,8 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, pipeline_config,
 
     #Create/Update non relevant contacts to rapipd_pro
     non_relevant_uuids = _generate_non_relevant_advert_uuids(participants_by_column,
-                                                                pipeline_config.analysis_config.dataset_configurations)
+                                                                pipeline_config.analysis.dataset_configurations)
+
     for dataset, dataset_uuids in non_relevant_uuids.items():
         non_relevant_dataset_urns = _convert_uuids_to_urns(dataset_uuids, uuid_table)
         log.info(f'uploading {len(non_relevant_dataset_urns)} non relevant contacts for {dataset}')

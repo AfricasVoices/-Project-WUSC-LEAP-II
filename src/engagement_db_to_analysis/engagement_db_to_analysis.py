@@ -164,8 +164,9 @@ def export_traced_data(traced_data, export_path):
         TracedDataJsonIO.export_traced_data_iterable_to_jsonl(traced_data, f)
 
 
-def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_config, engagement_db, membership_group_dir_path,
-                            output_dir, cache_path=None):
+def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_config, uuid_table, engagement_db, rapid_pro,
+                            membership_group_dir_path, output_dir, cache_path=None):
+
     analysis_dataset_configurations = pipeline_config.analysis.dataset_configurations
     # TODO: Tidy up which functions get passed analysis_configs and which get passed dataset_configurations
 
@@ -229,5 +230,5 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
             f"{output_dir}/automated-analysis", f"{drive_dir}/automated-analysis", recursive=True
         )
 
-    sync_advert_contacts_to_rapidpro(participants_by_column, pipeline_config.analysis,
+    sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                          google_cloud_credentials_file_path, membership_group_dir_path)
