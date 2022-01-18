@@ -85,3 +85,37 @@ class AnalysisCache:
         with open(export_file_path, "w") as f:
             for msg in messages:
                 f.write(f"{json.dumps(msg.to_dict(serialize_datetimes_to_str=True))}\n")
+
+    def set_synced_uuids(self, group_name, participants_uuids):
+        """
+        Sets a set of participants_uuids for the given rapid pro group.
+
+        :param group_name: name of the rapid pro group.
+        :type group_name: str
+        :param group_name: participants uuids to set, for the given rapid pro group.
+        :type group_name: list of participants uuids
+        """
+        export_file_path = path.join(f"{self.cache_dir}/{group_name}.jsonl")
+        IOUtils.ensure_dirs_exist_for_file(export_file_path)
+        with open(export_file_path, "w") as f:
+            f.write(json.dumps(participants_uuids))
+
+    def get_synced_uuids(self, group_name):
+        """
+        Sets a set of participants_uuids for the given rapid pro group.
+
+        :param group_name: name of the rapid pro group.
+        :type group_name: str
+        :param group_name: participants uuids to set, for the given rapid pro group.
+        :type group_name: list of participants uuids
+        """
+
+        previous_export_file_path = path.join(f"{self.cache_dir}/{group_name}.jsonl")
+        try:
+            with open(previous_export_file_path) as f:
+                participants_uuids = json.load(f)
+
+        except FileNotFoundError:
+            return []
+
+        return participants_uuids
