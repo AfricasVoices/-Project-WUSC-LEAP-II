@@ -22,6 +22,54 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 
     return urns
 
+def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
+
+    group_uuid = rapid_pro.get_groups(name=group_name)[0].uuid
+    if group_uuid is None:
+        group_uuid = rapid_pro.create_group(name=group_name).uuid
+
+    return group_uuid
+
+def _update_group_for_urn(urn, group_uuid, rapid_pro):
+
+    urn_groups = rapid_pro.get_contacts(urn=urn)[0].groups
+    urn_groups.append(group_uuid)
+    rapid_pro.update_contact(urn, groups=urn_groups)
+
+def _get_uuids_to_sync(target_uuids, synced_uuids):
+
+    uuids_to_sync = set()
+    for uid in target_uuids:
+        if uid not in synced_uuids:
+            uuids_to_sync.add(uid)
+
+    return uuids_to_sync
+
+
+def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_pro):
+
+    synced_uuids = []
+    if cache is not None:
+        synced_dataset_nc_uuids = cache.get_synced_uuids(group_name)
+        log.info(f'Found {len(synced_dataset_nc_uuids)} previously uploaded to {group_name}...')
+
+    # If cache is available, check and skip uploading previously synced_dataset_nc_uuids
+    uuids_to_sync = _get_uuids_to_sync(target_uuids, synced_uuids)
+
+    # Re-identify the uuids.
+    urns_to_sync = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
+
+    # Sync the group nc contacts.
+    log.info(f'Adding {len(urns_to_sync)} contacts to {group_name} group...')
+    advert_group_uuid = _ensure_rapid_pro_group_exists(group_name, rapid_pro)
+
+    for urn in urns_to_sync:
+        _update_group_for_urn(urn, advert_group_uuid, rapid_pro)
+        synced_uuids.append(uuid_table.data_to_uuid(urn))
+
+    if cache is not None:
+        cache.set_synced_uuids(group_name, synced_uuids)
+
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                      google_cloud_credentials_file_path, membership_group_dir_path):
 
@@ -101,15 +149,14 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
                                                                                 pipeline_config.analysis,
                          google_cloud_credentials_file_path, membership_group_dir_path)
 
+
     # Update consent_withdrawn contact field for opt_out contacts
     synced_opt_out_uuids = []
     if cache is not None:
         synced_opt_out_uuids = cache.get_synced_uuids('opt_out_uuids')
-
-    opt_out_uuids_to_sync = set()
-    for uid in opt_out_uuids:
-        if uid not in synced_opt_out_uuids:
-            opt_out_uuids_to_sync.add(uid)
+        log.info(f"Found {len(synced_opt_out_uuids)} previously updated consent withdrawn uuids...")
+        
+    opt_out_uuids_to_sync = _get_uuids_to_sync(opt_out_uuids, synced_opt_out_uuids)
 
     # Re-identify the uuids.
     opt_out_urns = _convert_uuids_to_urns(opt_out_uuids_to_sync, uuid_table)
@@ -124,65 +171,16 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     if cache is not None:
         cache.set_synced_uuids('opt_out_uuids', synced_opt_out_uuids)
 
-
-    # check if the advert group exists in rapidpro and create one otherwise
+    log.info(f'Uploading weekly advert group to rapid pro...')
     advert_group_name = f"{pipeline_config.pipeline_name}_advert_contacts"
-    advert_group_uuid = rapid_pro.get_groups(name=advert_group_name)[0].uuid
-    synced_weekly_advert_uuids = []
-    if cache is not None:
-        synced_weekly_advert_uuids = cache.get_synced_uuids(advert_group_name)
-
-    uuids_to_sync = set()
-    for uid in weekly_advert_uuids:
-        if uid not in synced_weekly_advert_uuids:
-            uuids_to_sync.add(uid)
-
-    weekly_advert_urns = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
-
-    log.info(f'uploading {len(weekly_advert_urns)} weekly advert contacts')
-    if advert_group_uuid is None:
-        advert_group_uuid = rapid_pro.create_group(name=advert_group_name).uuid
-
-    for urn in weekly_advert_urns:
-        urn_groups = rapid_pro.get_contacts(urn=urn)[0].groups
-        urn_groups.append(advert_group_uuid)
-        rapid_pro.update_contact(urn, groups=urn_groups)
-        synced_weekly_advert_uuids.append(uuid_table.data_to_uuid(urn))
-
-    if cache is not None:
-        cache.set_synced_uuids(advert_group_name, synced_opt_out_uuids)
-
+    _sync_group_to_rapid_pro(cache, weekly_advert_uuids, advert_group_name, uuid_table, rapid_pro)
+    
 
     #Create/Update non relevant contacts to rapid_pro
+    log.info(f'Uploading contacts who sent non relevant messages for each episode...')
     non_relevant_uuids = _generate_non_relevant_advert_uuids(participants_by_column,
                                                                 pipeline_config.analysis.dataset_configurations)
 
-    log.info(f'Uploading nc contacts for each episode...')
     for dataset, dataset_nc_uuids in non_relevant_uuids.items():
-
-        # Check if dataset group exists in rapidpro
         dataset_group_name = f"{pipeline_config.pipeline_name}_{dataset}_nc_advert_contacts"
-        dataset_group_uuid = rapid_pro.get_groups(name=dataset_group_name)[0].uuid
-        if dataset_group_uuid is None:
-            dataset_group_uuid = rapid_pro.create_group(name=dataset_group_name).uuid
-
-        # If cache is available, check and skip uploading previously synced_dataset_nc_uuids
-        synced_dataset_nc_uuids = None
-        if cache is not None:
-            synced_dataset_nc_uuids = cache.get_synced_uuids(dataset_group_name)
-            log.info(f'Found {len(synced_dataset_nc_uuids)} previously uploaded {dataset} nc contacts...')
-
-        dataset_nc_uuids_to_sync = set()
-        for uid in dataset_nc_uuids:
-            if uid not in synced_dataset_nc_uuids:
-                dataset_nc_uuids_to_sync.add(uid)
-
-        # Re-identify the uuids.
-        dataset_nc_urns = _convert_uuids_to_urns(dataset_nc_uuids_to_sync, uuid_table)
-
-        # Sync the group nc contacts.
-        log.info(f'Adding {len(dataset_nc_urns)} nc contacts to {dataset_group_name} group...')
-        for urn in dataset_nc_urns:
-            urn_groups = rapid_pro.get_contacts(urn=urn)[0].groups
-            urn_groups.append(dataset_group_uuid)
-            rapid_pro.update_contact(urn, groups=urn_groups)
+        _sync_group_to_rapid_pro(cache, dataset_nc_uuids, dataset_group_name, uuid_table, rapid_pro)
