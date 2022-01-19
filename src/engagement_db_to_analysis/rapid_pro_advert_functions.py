@@ -14,6 +14,98 @@ log = Logger(__name__)
 CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
 
+
+
+def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
+                                     google_cloud_credentials_file_path, membership_group_dir_path):
+    '''
+    Generates sets of weekly advert and  opt_out UUIDs.
+
+    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param analysis_config: Configuration for the export.
+    :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
+    :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
+                                               access the credentials bucket.
+    :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
+                        stored as `avf-participant-uuid` column.
+    :type: membership_group_dir_path: str
+    :return opt_out_uuids and weekly_advert_uuids : Sets of opted out and weekly advert uuids.
+    :type opt_out_uuids & weekly_advert_uuids: set of str
+    '''
+
+    opt_out_uuids = set()
+    weekly_advert_uuids = set()
+    for participant_td in participants_by_column:
+        if participant_td["consent_withdrawn"] == Codes.TRUE:
+            opt_out_uuids.add(participant_td["participant_uuid"])
+            continue
+
+        weekly_advert_uuids.add(participant_td["participant_uuid"])
+
+    # If available, add consented membership group uids to advert uuids
+    if analysis_config.membership_group_configuration is not None:
+        log.info(f"Adding consented membership group uids to advert uuids ")
+        membership_group_csv_urls = \
+            analysis_config.membership_group_configuration.membership_group_csv_urls.items()
+
+        membership_groups_data = get_membership_groups_data(google_cloud_credentials_file_path,
+                                                            membership_group_csv_urls, membership_group_dir_path)
+
+        consented_membership_groups_uuids = 0
+        opt_out_membership_groups_uuids = 0
+        for membership_group in membership_groups_data.values():
+            for uuid in membership_group:
+                if uuid in opt_out_uuids:
+                    opt_out_membership_groups_uuids += 1
+                    continue
+
+                consented_membership_groups_uuids += 1
+                weekly_advert_uuids.add(uuid)
+
+        log.info(f"Found {opt_out_membership_groups_uuids} membership_groups_uuids who have opted out")
+        log.info(f"Added {consented_membership_groups_uuids} membership_groups_uuids to advert uuids")
+
+    return opt_out_uuids, weekly_advert_uuids
+
+
+def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configurations):
+    '''
+    Generates non relevant advert UUIDS for each episode.
+
+    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param dataset_configurations: Configuration for the export.
+    :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
+    :return non_relevant_uuids : A dictionary of dataset_name -> uuids who sent messages labelled with non relevant themes.
+    :type non_relevant_uuids: dict of dataset_name -> list of uuids
+    '''
+
+    non_relevant_uuids = dict()
+    for analysis_dataset_config in dataset_configurations:
+        if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC:
+            continue
+
+        non_relevant_uuids[analysis_dataset_config.dataset_name] = set()
+        for participant_td in participants_by_column:
+            if participant_td["consent_withdrawn"] == Codes.TRUE:
+                continue
+
+            for coding_config in analysis_dataset_config.coding_configs:
+                label_key = f'{coding_config.analysis_dataset}_labels'
+                analysis_configurations = core_data_analysis_config(analysis_dataset_config.raw_dataset,
+                                                                analysis_dataset_config.raw_dataset,
+                                                                label_key,
+                                                                coding_config.code_scheme)
+                codes = analysis_utils.get_codes_from_td(participant_td, analysis_configurations)
+                if not analysis_utils.relevant(participant_td, "consent_withdrawn", analysis_configurations):
+                    for code in codes:
+                        if code.string_value in ["showtime_question", "greeting", "opt_in",
+                                                 "about_conversation", "gratitude", "question", "NC"]:
+                            non_relevant_uuids[analysis_dataset_config.dataset_name].add(participant_td["participant_uuid"])
+
+    return non_relevant_uuids
+
 def _convert_uuids_to_urns(uuids_group, uuid_table):
     """
     Converts a list of UUIDs to their respective rapid_pro urns.
@@ -111,13 +203,13 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
         synced_dataset_nc_uuids = cache.get_synced_uuids(group_name)
         log.info(f'Found {len(synced_dataset_nc_uuids)} previously uploaded to {group_name}...')
 
-    # If cache is available, check and skip uploading previously synced_dataset_nc_uuids
+    # If cache is available, check for uuids to sync in the current pipeline run.
     uuids_to_sync = _get_uuids_to_sync(target_uuids, synced_uuids)
 
     # Re-identify the uuids.
     urns_to_sync = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
 
-    # Sync the group nc contacts.
+    # Sync the group contacts to rapid_pro.
     log.info(f'Adding {len(urns_to_sync)} contacts to {group_name} group...')
     advert_group_uuid = _ensure_rapid_pro_group_exists(group_name, rapid_pro)
 
@@ -127,96 +219,6 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
 
     if cache is not None:
         cache.set_synced_uuids(group_name, synced_uuids)
-
-def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
-                                     google_cloud_credentials_file_path, membership_group_dir_path):
-    '''
-    Generates sets of weekly advert and  opt_out UUIDs.
-
-    :param participants_by_column: Participants column view Traced Data object to produce the row for.
-    :type participants_by_column: core_data_modules.traced_data.TracedData
-    :param analysis_config: Configuration for the export.
-    :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
-    :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
-                                               access the credentials bucket.
-    :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
-                        stored as `avf-participant-uuid` column.
-    :type: membership_group_dir_path: str
-    :return opt_out_uuids and weekly_advert_uuids : Sets of opted out and weekly advert uuids.
-    :type opt_out_uuids & weekly_advert_uuids: set of str
-    '''
-
-    opt_out_uuids = set()
-    weekly_advert_uuids = set()
-    for participant_td in participants_by_column:
-        if participant_td["consent_withdrawn"] == Codes.TRUE:
-            opt_out_uuids.add(participant_td["participant_uuid"])
-            continue
-
-        weekly_advert_uuids.add(participant_td["participant_uuid"])
-
-    # If available, add consented membership group uids to advert uuids
-    if analysis_config.membership_group_configuration is not None:
-        log.info(f"Adding consented membership group uids to advert uuids ")
-        membership_group_csv_urls = \
-            analysis_config.membership_group_configuration.membership_group_csv_urls.items()
-
-        membership_groups_data = get_membership_groups_data(google_cloud_credentials_file_path,
-                                                            membership_group_csv_urls, membership_group_dir_path)
-
-        consented_membership_groups_uuids = 0
-        opt_out_membership_groups_uuids = 0
-        for membership_group in membership_groups_data.values():
-            for uuid in membership_group:
-                if uuid in opt_out_uuids:
-                    opt_out_membership_groups_uuids += 1
-                    continue
-
-                consented_membership_groups_uuids += 1
-                weekly_advert_uuids.add(uuid)
-
-        log.info(f"Found {opt_out_membership_groups_uuids} membership_groups_uuids who have opted out")
-        log.info(f"Added {consented_membership_groups_uuids} membership_groups_uuids to advert uuids")
-
-    return opt_out_uuids, weekly_advert_uuids
-
-
-def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configurations):
-    '''
-    Generates non relevant advert UUIDS for each episode.
-
-    :param participants_by_column: Participants column view Traced Data object to produce the row for.
-    :type participants_by_column: core_data_modules.traced_data.TracedData
-    :param dataset_configurations: Configuration for the export.
-    :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
-    :return non_relevant_uuids : A dictionary of dataset_name -> uuids who sent messages labelled with non relevant themes.
-    :type non_relevant_uuids: dict of dataset_name -> list of uuids
-    '''
-
-    non_relevant_uuids = dict()
-    for analysis_dataset_config in dataset_configurations:
-        if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC:
-            continue
-
-        non_relevant_uuids[analysis_dataset_config.dataset_name] = set()
-        for participant_td in participants_by_column:
-            if participant_td["consent_withdrawn"] == Codes.TRUE:
-                continue
-
-            for coding_config in analysis_dataset_config.coding_configs:
-                label_key = f'{coding_config.analysis_dataset}_labels'
-                analysis_configurations = core_data_analysis_config(analysis_dataset_config.raw_dataset,
-                                                                analysis_dataset_config.raw_dataset,
-                                                                label_key,
-                                                                coding_config.code_scheme)
-                codes = analysis_utils.get_codes_from_td(participant_td, analysis_configurations)
-                if not analysis_utils.relevant(participant_td, "consent_withdrawn", analysis_configurations):
-                    for code in codes:
-                        if code.string_value in ["showtime_question", "greeting", "opt_in",
-                                                 "about_conversation", "gratitude", "question", "NC"]:
-                            non_relevant_uuids[analysis_dataset_config.dataset_name].add(participant_td["participant_uuid"])
-
-    return non_relevant_uuids
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                          google_cloud_credentials_file_path, membership_group_dir_path, cache_path):
