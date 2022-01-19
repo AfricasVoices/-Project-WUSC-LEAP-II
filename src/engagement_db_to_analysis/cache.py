@@ -95,7 +95,7 @@ class AnalysisCache:
         :param group_name: participants uuids to set, for the given rapid pro group.
         :type group_name: list of participants uuids
         """
-        export_file_path = path.join(f"{self.cache_dir}/{group_name}.jsonl")
+        export_file_path = path.join(f"{self.cache_dir}/rapid_pro_adverts/{group_name}.jsonl")
         IOUtils.ensure_dirs_exist_for_file(export_file_path)
         with open(export_file_path, "w") as f:
             f.write(json.dumps(participants_uuids))
@@ -110,7 +110,7 @@ class AnalysisCache:
         :type group_name: list of participants uuids
         """
 
-        previous_export_file_path = path.join(f"{self.cache_dir}/{group_name}.jsonl")
+        previous_export_file_path = path.join(f"{self.cache_dir}/rapid_pro_adverts/{group_name}.jsonl")
         try:
             with open(previous_export_file_path) as f:
                 participants_uuids = json.load(f)
