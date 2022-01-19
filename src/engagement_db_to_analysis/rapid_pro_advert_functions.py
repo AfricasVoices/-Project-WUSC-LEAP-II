@@ -13,7 +13,18 @@ log = Logger(__name__)
 
 CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
+
 def _convert_uuids_to_urns(uuids_group, uuid_table):
+    """
+    Converts a list of UUIDs to their respective rapid_pro urns.
+
+    :param uuids_group: list of participant UUIDs to convert.
+    :type uuids_group: list of participant UUIDs.
+    :param uuid_table: UUID table to use to de-identify contact urns.
+    :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable
+    :return urns: a set of de-identified urn.
+    :rtype: set of str
+    """
 
     log.info(f"Converting {len(uuids_group)} uuids to urns...")
     urn_lut = uuid_table.uuid_to_data_batch(uuids_group)
@@ -22,7 +33,19 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 
     return urns
 
+
 def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
+
+    '''
+    Checks if a group exists in rapid_pro, creates one if it does not exist and returns the group uuid.
+
+    :param group_name: Name of the group to check in rapid_pro.
+    :type group_name: str
+    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
+    :return group_uuid: the uuid of the group
+    :rtype: str
+    '''
 
     group_uuid = rapid_pro.get_groups(name=group_name)[0].uuid
     if group_uuid is None:
@@ -30,13 +53,35 @@ def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
 
     return group_uuid
 
-def _update_group_for_urn(urn, group_uuid, rapid_pro):
 
-    urn_groups = rapid_pro.get_contacts(urn=urn)[0].groups
-    urn_groups.append(group_uuid)
-    rapid_pro.update_contact(urn, groups=urn_groups)
+def _update_group_for_urn(urn, group_uuid, rapid_pro):
+    '''
+    Updates the target group to a contacts group list in rapid_pro
+
+    :return urns: urn to update groups.
+    :rtype: str
+    :param group_uuid: UUID of the group to update for the urn in rapid_pro
+    :type group_uuid: str
+    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
+    '''
+
+    urn_groups = set(rapid_pro.get_contacts(urn=urn)[0].groups)
+    urn_groups.add(group_uuid)
+    rapid_pro.update_contact(urn, groups=[urn_groups])
+
 
 def _get_uuids_to_sync(target_uuids, synced_uuids):
+    '''
+    Generates uuids to sync in the current pipeline run.
+
+    :param target_uuids: List containing all uuids for the target context e.g opt_out uuids
+    :rtype: list of str
+    :param synced_uuids: List containing all uuids synced in previous pipeline run.
+    :type synced_uuids: list of str
+    :return rapid_pro: A set of uuids to sync in the current pipeline run.
+    :type rapid_pro: set of str
+    '''
 
     uuids_to_sync = set()
     for uid in target_uuids:
@@ -47,6 +92,19 @@ def _get_uuids_to_sync(target_uuids, synced_uuids):
 
 
 def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_pro):
+    '''
+    Syncs target group urns to rapid_pro.
+
+    :param cache: An instance of AnalysisCache to set and get uuids synced in previous pipeline run
+    :param type: AnalysisCache
+    :param target_uuids: List containing all uuids for the target context e.g opt_out uuids.
+    :param group_name: Name of the group to sync in rapid_pro.
+    :type group_name: str
+    :param uuid_table: UUID table to use to de-identify contact urns.
+    :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable.
+    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
+    '''
 
     synced_uuids = []
     if cache is not None:
@@ -72,6 +130,21 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
 
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                      google_cloud_credentials_file_path, membership_group_dir_path):
+    '''
+    Generates sets of weekly advert and  opt_out UUIDs.
+
+    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param analysis_config: Configuration for the export.
+    :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
+    :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
+                                               access the credentials bucket.
+    :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
+                        stored as `avf-participant-uuid` column.
+    :type: membership_group_dir_path: str
+    :return opt_out_uuids and weekly_advert_uuids : Sets of opted out and weekly advert uuids.
+    :type opt_out_uuids & weekly_advert_uuids: set of str
+    '''
 
     opt_out_uuids = set()
     weekly_advert_uuids = set()
@@ -109,6 +182,16 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
 
 
 def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configurations):
+    '''
+    Generates non relevant advert UUIDS for each episode.
+
+    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param dataset_configurations: Configuration for the export.
+    :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
+    :return non_relevant_uuids : A dictionary of dataset_name -> uuids who sent messages labelled with non relevant themes.
+    :type non_relevant_uuids: dict of dataset_name -> list of uuids
+    '''
 
     non_relevant_uuids = dict()
     for analysis_dataset_config in dataset_configurations:
@@ -149,19 +232,20 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
                                                                                 pipeline_config.analysis,
                          google_cloud_credentials_file_path, membership_group_dir_path)
 
-
-    # Update consent_withdrawn contact field for opt_out contacts
+    log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
+    #check for opt out uuids to sync in this pipeline run
     synced_opt_out_uuids = []
     if cache is not None:
         synced_opt_out_uuids = cache.get_synced_uuids('opt_out_uuids')
-        log.info(f"Found {len(synced_opt_out_uuids)} previously updated consent withdrawn uuids...")
+        log.info(f"Found {len(synced_opt_out_uuids)} previously synced consent withdrawn uuids...")
         
     opt_out_uuids_to_sync = _get_uuids_to_sync(opt_out_uuids, synced_opt_out_uuids)
 
     # Re-identify the uuids.
     opt_out_urns = _convert_uuids_to_urns(opt_out_uuids_to_sync, uuid_table)
 
-    log.info(f'Updating consent_withdrawn contact_field for {len(opt_out_urns)} opt_out contacts ')
+    # Update consent_withdrawn contact field for opt_out contacts
+    log.info(f'Found {len(opt_out_urns)} new opt_out contacts to sync ')
     consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field
     for urn in opt_out_urns:
         rapid_pro.update_contact(urn, contact_fields= {consent_withdrawn_contact_field.key:
@@ -171,13 +255,13 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     if cache is not None:
         cache.set_synced_uuids('opt_out_uuids', synced_opt_out_uuids)
 
-    log.info(f'Uploading weekly advert group to rapid pro...')
+    log.info(f'Syncing weekly advert group to rapid pro...')
     advert_group_name = f"{pipeline_config.pipeline_name}_advert_contacts"
     _sync_group_to_rapid_pro(cache, weekly_advert_uuids, advert_group_name, uuid_table, rapid_pro)
     
 
-    #Create/Update non relevant contacts to rapid_pro
-    log.info(f'Uploading contacts who sent non relevant messages for each episode...')
+    #Update  dataset non relevant groups to rapid_pro
+    log.info(f'Syncing contacts who sent non relevant messages for each episode...')
     non_relevant_uuids = _generate_non_relevant_advert_uuids(participants_by_column,
                                                                 pipeline_config.analysis.dataset_configurations)
 
