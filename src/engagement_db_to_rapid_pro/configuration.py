@@ -29,3 +29,4 @@ class EngagementDBToRapidProConfiguration:
     allow_clearing_fields: bool = False  # Whether to allow setting contact fields to empty. Setting this to True may
                                          # not be appropriate for continuous sync because a new message may have arrived
                                          # in Rapid Pro but not yet in the engagement database.
+    sync_advert_contacts: bool = False   # Whether to sync advert contacts, consent withdrawn field to rapid pro

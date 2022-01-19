@@ -183,6 +183,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn",
                                                      label="Yes")
             ),
+        sync_advert_contacts = True,
         )
     ),
     analysis=AnalysisConfiguration(
