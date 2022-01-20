@@ -4,6 +4,78 @@
   "Version": "0.0.0.1",
   "Codes": [
     {
+      "CodeID": "code-222183a2",
+      "CodeType": "Normal",
+      "DisplayText": "giving them less duties",
+      "NumericValue": 1,
+      "StringValue": "giving_them_less_duties",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-9f6e7c5e",
+      "CodeType": "Normal",
+      "DisplayText": "helping them with house chores",
+      "NumericValue": 2,
+      "StringValue": "helping_them_with_house_chores",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-a2df3a02",
+      "CodeType": "Normal",
+      "DisplayText": "sharing house chores equally",
+      "NumericValue": 3,
+      "StringValue": "sharing_house_chores_equally",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-ea27f943",
+      "CodeType": "Normal",
+      "DisplayText": "provide child care support",
+      "NumericValue": 4,
+      "StringValue": "provide_child_care_support",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-efb3eb2c",
+      "CodeType": "Normal",
+      "DisplayText": "allow or give them time to attend trainings",
+      "NumericValue": 5,
+      "StringValue": "allow_or_give_them_time_to_attend_trainings",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-481b7b6f",
+      "CodeType": "Normal",
+      "DisplayText": "counselling and advising",
+      "NumericValue": 6,
+      "StringValue": "counselling_and_advising",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e48d4b3c",
+      "CodeType": "Normal",
+      "DisplayText": "hiring help",
+      "NumericValue": 7,
+      "StringValue": "hiring_help",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-b113c6f6",
+      "CodeType": "Normal",
+      "DisplayText": "counselling and advise",
+      "NumericValue": 8,
+      "StringValue": "counselling_and_advise",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-4e528a71",
+      "CodeType": "Normal",
+      "DisplayText": "other theme",
+      "NumericValue": 9,
+      "StringValue": "other_theme",
+      "VisibleInCoda": true
+    },
+    {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
       "ControlCode": "NA",
