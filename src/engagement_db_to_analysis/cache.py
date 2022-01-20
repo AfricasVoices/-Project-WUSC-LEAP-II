@@ -102,7 +102,7 @@ class AnalysisCache:
 
     def get_synced_uuids(self, group_name):
         """
-        Sets a set of participants_uuids for the given rapid pro group.
+        Gets a set of participants_uuids for the given rapid pro group.
 
         :param group_name: name of the rapid pro group.
         :type group_name: str

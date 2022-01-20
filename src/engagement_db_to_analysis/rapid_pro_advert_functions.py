@@ -14,14 +14,12 @@ log = Logger(__name__)
 CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
 
-
-
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                      google_cloud_credentials_file_path, membership_group_dir_path):
     '''
-    Generates sets of weekly advert and  opt_out UUIDs.
+    Generates sets of weekly advert and  opt_out UUIDs to advertise to in rapid_pro.
 
-    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
     :type participants_by_column: core_data_modules.traced_data.TracedData
     :param analysis_config: Configuration for the export.
     :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
@@ -73,12 +71,12 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
     '''
     Generates non relevant advert UUIDS for each episode.
 
-    :param participants_by_column: Participants column view Traced Data object to produce the row for.
+    :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
     :type participants_by_column: core_data_modules.traced_data.TracedData
     :param dataset_configurations: Configuration for the export.
     :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
     :return non_relevant_uuids : A dictionary of dataset_name -> uuids who sent messages labelled with non relevant themes.
-    :type non_relevant_uuids: dict of dataset_name -> list of uuids
+    :rtype non_relevant_uuids: dict of dataset_name -> list of uuids
     '''
 
     non_relevant_uuids = dict()
@@ -129,11 +127,11 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
 
     '''
-    Checks if a group exists in rapid_pro, creates one if it does not exist and returns the group uuid.
+    Checks if a group exists in rapid_pro, creates one if it does not exist, and return the group uuid.
 
     :param group_name: Name of the group to check in rapid_pro.
     :type group_name: str
-    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :param rapid_pro: Rapid Pro client to check.
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
     :return group_uuid: the uuid of the group
     :rtype: str
@@ -148,13 +146,13 @@ def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
 
 def _update_group_for_urn(urn, group_uuid, rapid_pro):
     '''
-    Updates the target group to a contacts group list in rapid_pro
+    Updates the target group to a contacts' groups list in rapid_pro.
 
-    :return urns: urn to update groups.
-    :rtype: str
+    :param urns: urn to update groups.
+    :type urns: str
     :param group_uuid: UUID of the group to update for the urn in rapid_pro
     :type group_uuid: str
-    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :param rapid_pro: Rapid Pro client to update the contacts' groups list in.
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
     '''
 
@@ -165,14 +163,14 @@ def _update_group_for_urn(urn, group_uuid, rapid_pro):
 
 def _get_uuids_to_sync(target_uuids, synced_uuids):
     '''
-    Generates uuids to sync in the current pipeline run.
+    Generates uuids from target group, to sync in the current pipeline run, based on previously synced uuids in cache.
 
-    :param target_uuids: List containing all uuids for the target context e.g opt_out uuids
-    :rtype: list of str
+    :param target_uuids: Set containing all uuids for the target context e.g opt_out uuids
+    :type target_uuids: set of str
     :param synced_uuids: List containing all uuids synced in previous pipeline run.
     :type synced_uuids: list of str
-    :return rapid_pro: A set of uuids to sync in the current pipeline run.
-    :type rapid_pro: set of str
+    :return uuids_to_sync: A set of uuids to sync in the current pipeline run.
+    :rtype uuids_to_sync: set of str
     '''
 
     uuids_to_sync = set()
@@ -187,14 +185,15 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
     '''
     Syncs target group urns to rapid_pro.
 
-    :param cache: An instance of AnalysisCache to set and get uuids synced in previous pipeline run
+    :param cache: An instance of AnalysisCache to get uuids synced in previous pipeline run and set uuids synced in this session.
     :param type: AnalysisCache
-    :param target_uuids: List containing all uuids for the target context e.g opt_out uuids.
+    :param target_uuids: Set containing all uuids for the target context e.g opt_out uuids.
+    :type target_uuids: set of str
     :param group_name: Name of the group to sync in rapid_pro.
     :type group_name: str
     :param uuid_table: UUID table to use to de-identify contact urns.
     :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable.
-    :param rapid_pro: Rapid Pro client to use to ensure a Rapid Pro workspace has the given keys.
+    :param rapid_pro: Rapid Pro client to sync the groups to.
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
     '''
 
