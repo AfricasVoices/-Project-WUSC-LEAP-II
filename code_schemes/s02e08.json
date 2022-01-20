@@ -60,14 +60,6 @@
       "VisibleInCoda": true
     },
     {
-      "CodeID": "code-b113c6f6",
-      "CodeType": "Normal",
-      "DisplayText": "counselling and advise",
-      "NumericValue": 8,
-      "StringValue": "counselling_and_advise",
-      "VisibleInCoda": true
-    },
-    {
       "CodeID": "code-4e528a71",
       "CodeType": "Normal",
       "DisplayText": "other theme",
