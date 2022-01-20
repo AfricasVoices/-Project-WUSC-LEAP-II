@@ -163,7 +163,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     coda_dataset_id="LEAP_s02e08",
                     engagement_db_dataset="leap_s02e08",
                     code_scheme_configurations=[
-                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e08"), auto_coder=None)
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e08"), auto_coder=None, coda_code_schemes_count=3)
                     ],
                     ws_code_string_value="leap_s02e08"
                 ),
