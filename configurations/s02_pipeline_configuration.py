@@ -43,7 +43,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
 
                     # Redirect s02e03_kalobeyei_follow_up to leap_s02e03
-                    FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_follow_up", "Probe_question", "leap_s02e03"),
+                    FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_follow_up", "probe_question", "leap_s02e03"),
 
                     FlowResultConfiguration("wusc_leap_s02e04_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
                     FlowResultConfiguration("wusc_leap_s02e05_kalobeyei_activation", "rqa_s02e05", "leap_s02e05"),
@@ -55,9 +55,9 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02e07_kalobeyei_activation", "rqa_s02e07", "leap_s02e07"),
                     FlowResultConfiguration("wusc_leap_s02e08_kalobeyei_activation", "rqa_s02e08", "leap_s02e08"),
 
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "Lessons_Learnt", #Todo standardise use of lowercase for Textit variables
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "lessons_learnt",
                                             "leap_s02_lessons_learnt"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "Engagement_suggestions",
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "engagement_suggestions",
                                             "leap_s02_engagement_suggestions")
 
                 ]
