@@ -42,7 +42,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02e02_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
                     FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
 
-                    # Redirect s02e03_kalobeyei_follow_up to leap_s02e05
+                    # Redirect s02e03_kalobeyei_follow_up to leap_s02e03
                     FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_follow_up", "Probe_question", "leap_s02e03"),
 
                     FlowResultConfiguration("wusc_leap_s02e04_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
