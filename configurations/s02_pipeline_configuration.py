@@ -41,11 +41,25 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01"),
                     FlowResultConfiguration("wusc_leap_s02e02_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
                     FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_activation", "rqa_s02e03", "leap_s02e03"),
+
+                    # Redirect s02e03_kalobeyei_follow_up to leap_s02e03
+                    FlowResultConfiguration("wusc_leap_s02e03_kalobeyei_follow_up", "probe_question", "leap_s02e03"),
+
                     FlowResultConfiguration("wusc_leap_s02e04_kalobeyei_activation", "rqa_s02e04", "leap_s02e04"),
                     FlowResultConfiguration("wusc_leap_s02e05_kalobeyei_activation", "rqa_s02e05", "leap_s02e05"),
+
+                    # Redirect s02e05_kalobeyei_follow_up to leap_s02e05
+                    FlowResultConfiguration("wusc_leap_s02e05_kalobeyei_follow_up", "startup_support", "leap_s02e05"),
+
                     FlowResultConfiguration("wusc_leap_s02e06_kalobeyei_activation", "rqa_s02e06", "leap_s02e06"),
                     FlowResultConfiguration("wusc_leap_s02e07_kalobeyei_activation", "rqa_s02e07", "leap_s02e07"),
-                    FlowResultConfiguration("wusc_leap_s02e08_kalobeyei_activation", "rqa_s02e08", "leap_s02e08")
+                    FlowResultConfiguration("wusc_leap_s02e08_kalobeyei_activation", "rqa_s02e08", "leap_s02e08"),
+
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "lessons_learnt",
+                                            "leap_s02_lessons_learnt"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_evaluation", "engagement_suggestions",
+                                            "leap_s02_engagement_suggestions")
+
                 ]
             )
         )
@@ -163,9 +177,25 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     coda_dataset_id="LEAP_s02e08",
                     engagement_db_dataset="leap_s02e08",
                     code_scheme_configurations=[
-                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e08"), auto_coder=None)
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("s02e08"), auto_coder=None, coda_code_schemes_count=3)
                     ],
                     ws_code_string_value="leap_s02e08"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02_lessons_learnt",
+                    engagement_db_dataset="leap_s02_lessons_learnt",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("leap_s02_lessons_learnt"), auto_coder=None, coda_code_schemes_count=3)
+                    ],
+                    ws_code_string_value="leap_s02_lessons_learnt"
+                ),
+                CodaDatasetConfiguration(
+                    coda_dataset_id="LEAP_s02_engagement_suggestions",
+                    engagement_db_dataset="leap_s02_engagement_suggestions",
+                    code_scheme_configurations=[
+                        CodeSchemeConfiguration(code_scheme=load_code_scheme("leap_s02_engagement_suggestions"), auto_coder=None, coda_code_schemes_count=3)
+                    ],
+                    ws_code_string_value="leap_s02_engagement_suggestions"
                 ),
             ],
             ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset"),
@@ -292,6 +322,28 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e08"),
                         analysis_dataset="s02e08"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02_lessons_learnt"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="lessons_learnt_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("leap_s02_lessons_learnt"),
+                        analysis_dataset="lessons_learnt"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["leap_s02_engagement_suggestions"],
+                dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                raw_dataset="engagement_suggestions_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("leap_s02_engagement_suggestions"),
+                        analysis_dataset="engagement_suggestions"
                     )
                 ]
             ),
