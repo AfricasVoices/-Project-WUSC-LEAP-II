@@ -3,7 +3,46 @@
   "Name": "LEAP_S02_Engagement_Suggestions",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-441c5bdb",
+      "CodeType": "Normal",
+      "DisplayText": "sms & calls",
+      "NumericValue": 1,
+      "StringValue": "sms_and_calls",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-414e672b",
+      "CodeType": "Normal",
+      "DisplayText": "social media",
+      "NumericValue": 2,
+      "StringValue": "social_media",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-33b3e373",
+      "CodeType": "Normal",
+      "DisplayText": "radio",
+      "NumericValue": 3,
+      "StringValue": "radio",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-7501cf10",
+      "CodeType": "Normal",
+      "DisplayText": "newspaper and tv",
+      "NumericValue": 4,
+      "StringValue": "newspaper_and_tv",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-10ca31a1",
+      "CodeType": "Normal",
+      "DisplayText": "physical meetings",
+      "NumericValue": 5,
+      "StringValue": "physical_meetings",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-3ce7c192",
       "CodeType": "Normal",

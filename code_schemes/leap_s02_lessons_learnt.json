@@ -3,7 +3,38 @@
   "Name": "LEAP_S02_Lessons_Learnt",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-5d70f898",
+      "CodeType": "Normal",
+      "DisplayText": "they are helpful",
+      "NumericValue": 1,
+      "StringValue": "they_are_helpful",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-35b8967f",
+      "CodeType": "Normal",
+      "DisplayText": "they are educational",
+      "NumericValue": 2,
+      "StringValue": "they_are_educational",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-4e25222e",
+      "CodeType": "Normal",
+      "DisplayText": "positive impacts",
+      "NumericValue": 3,
+      "StringValue": "positive_impacts",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-c301a060",
+      "CodeType": "Normal",
+      "DisplayText": "encourage girls",
+      "NumericValue": 4,
+      "StringValue": "encourage_girls",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-80abe957",
       "CodeType": "Normal",
