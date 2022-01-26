@@ -110,6 +110,8 @@ class AnalysisCache:
         :rtype participants_uuids: list of participants uuids | None
         """
 
+        #Testing
+
         previous_export_file_path = path.join(f"{self.cache_dir}/rapid_pro_adverts/{group_name}.jsonl")
         try:
             with open(previous_export_file_path) as f:

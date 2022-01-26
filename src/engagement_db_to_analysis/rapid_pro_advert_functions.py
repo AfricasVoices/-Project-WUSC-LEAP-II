@@ -156,9 +156,9 @@ def _update_group_for_urn(urn, group_uuid, rapid_pro):
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
     '''
 
-    urn_groups = set(rapid_pro.get_contacts(urn=urn)[0].groups)
-    urn_groups.add(group_uuid)
-    rapid_pro.update_contact(urn, groups=[urn_groups])
+    urn_groups = rapid_pro.get_contacts(urn=urn)[0].groups
+    urn_groups.append(group_uuid)
+    rapid_pro.update_contact(urn, groups=urn_groups)
 
 
 def _get_uuids_to_sync(target_uuids, synced_uuids):
