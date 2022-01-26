@@ -328,6 +328,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["leap_s02_lessons_learnt"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                dataset_name="LEAP_s02_lessons_learnt",
                 raw_dataset="lessons_learnt_raw",
                 coding_configs=[
                     CodingConfiguration(
@@ -339,6 +340,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["leap_s02_engagement_suggestions"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                dataset_name="LEAP_s02_engagement_suggestions",
                 raw_dataset="engagement_suggestions_raw",
                 coding_configs=[
                     CodingConfiguration(
