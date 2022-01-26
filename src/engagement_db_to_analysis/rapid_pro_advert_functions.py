@@ -19,7 +19,7 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
     '''
     Generates sets of weekly advert and  opt_out UUIDs to advertise to in rapid_pro.
 
-    :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
+    :param participants_by_column: Participants column view TracedData object to generate the uuids from.
     :type participants_by_column: core_data_modules.traced_data.TracedData
     :param analysis_config: Configuration for the export.
     :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
@@ -28,8 +28,8 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
     :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
                         stored as `avf-participant-uuid` column.
     :type: membership_group_dir_path: str
-    :return opt_out_uuids and weekly_advert_uuids : Sets of opted out and weekly advert uuids.
-    :type opt_out_uuids & weekly_advert_uuids: set of str
+    :return opt_out_uuids and weekly_advert_uuids : Set of opted out and weekly advert uuids.
+    :rtype opt_out_uuids & weekly_advert_uuids: set of str
     '''
 
     opt_out_uuids = set()
@@ -75,7 +75,7 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
     :type participants_by_column: core_data_modules.traced_data.TracedData
     :param dataset_configurations: Configuration for the export.
     :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
-    :return non_relevant_uuids : A dictionary of dataset_name -> uuids who sent messages labelled with non relevant themes.
+    :return non_relevant_uuids : A map of dataset_name -> uuids who sent messages labelled with non relevant themes.
     :rtype non_relevant_uuids: dict of dataset_name -> list of uuids
     '''
 
@@ -127,7 +127,7 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
 
     '''
-    Checks if a group exists in rapid_pro, creates one if it does not exist, and return the group uuid.
+    Checks if a group exists in rapid_pro, creates one if it does not exist, and returns the group uuid.
 
     :param group_name: Name of the group to check in rapid_pro.
     :type group_name: str
@@ -150,7 +150,7 @@ def _update_group_for_urn(urn, group_uuid, rapid_pro):
 
     :param urns: urn to update groups.
     :type urns: str
-    :param group_uuid: UUID of the group to update for the urn in rapid_pro
+    :param group_uuid: UUID of the group to update for the urn in rapid_pro.
     :type group_uuid: str
     :param rapid_pro: Rapid Pro client to update the contacts' groups list in.
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient

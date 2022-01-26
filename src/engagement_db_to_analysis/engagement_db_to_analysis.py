@@ -230,6 +230,6 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
             f"{output_dir}/automated-analysis", f"{drive_dir}/automated-analysis", recursive=True
         )
 
-    if pipeline_config.rapid_pro_target.sync_config. sync_advert_contacts:
+    if pipeline_config.rapid_pro_target.sync_config.sync_advert_contacts:
         sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                              google_cloud_credentials_file_path, membership_group_dir_path, cache_path)

@@ -92,8 +92,8 @@ class AnalysisCache:
 
         :param group_name: name of the rapid pro group.
         :type group_name: str
-        :param group_name: participants uuids to set, for the given rapid pro group.
-        :type group_name: list of participants uuids
+        :param participants_uuids: participants uuids to set, for the given rapid pro group.
+        :type participants_uuids: list of participants uuids
         """
         export_file_path = path.join(f"{self.cache_dir}/rapid_pro_adverts/{group_name}.jsonl")
         IOUtils.ensure_dirs_exist_for_file(export_file_path)
@@ -106,8 +106,8 @@ class AnalysisCache:
 
         :param group_name: name of the rapid pro group.
         :type group_name: str
-        :param group_name: participants uuids to set, for the given rapid pro group.
-        :type group_name: list of participants uuids
+        :retun participants_uuids: participants uuids for the given rapid pro group or none if not found.
+        :rtype participants_uuids: list of participants uuids | None
         """
 
         previous_export_file_path = path.join(f"{self.cache_dir}/rapid_pro_adverts/{group_name}.jsonl")
