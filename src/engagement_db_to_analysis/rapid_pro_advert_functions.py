@@ -113,6 +113,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
 
     return non_relevant_uuids
 
+
 def _convert_uuids_to_urns(uuids_group, uuid_table):
     """
     Converts a list of UUIDs to their respective rapid_pro urns.
@@ -222,11 +223,12 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
     advert_group_uuid = _ensure_rapid_pro_group_exists(group_name, rapid_pro)
 
     for urn in urns_to_sync:
-        _update_group_for_urn(urn, advert_group_uuid, rapid_pro)
+        _add_urn_to_group(urn, advert_group_uuid, rapid_pro)
         synced_uuids.append(uuid_table.data_to_uuid(urn))
 
     if cache is not None:
         cache.set_synced_uuids(group_name, synced_uuids)
+
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                          google_cloud_credentials_file_path, membership_group_dir_path, cache_path):
@@ -238,9 +240,10 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
         log.info(f"Initialising EngagementAnalysisCache at '{cache_path}'")
         cache = AnalysisCache(f"{cache_path}")
 
-    opt_out_uuids, weekly_advert_uuids = _generate_weekly_advert_and_opt_out_uuids(participants_by_column,
-                                                                                pipeline_config.analysis,
-                         google_cloud_credentials_file_path, membership_group_dir_path)
+    opt_out_uuids, weekly_advert_uuids = _generate_weekly_advert_and_opt_out_uuids(
+                                                participants_by_column, pipeline_config.analysis,
+                                                google_cloud_credentials_file_path, membership_group_dir_path
+    )
 
     log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
     #check for opt out uuids to sync in this pipeline run
