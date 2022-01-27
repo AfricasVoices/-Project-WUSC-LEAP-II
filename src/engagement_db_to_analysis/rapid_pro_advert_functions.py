@@ -85,6 +85,8 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
         if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC:
             continue
 
+        assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
+
         non_relevant_uuids[analysis_dataset_config.dataset_name] = set()
         for participant_td in participants_by_column:
             if participant_td["consent_withdrawn"] == Codes.TRUE:
