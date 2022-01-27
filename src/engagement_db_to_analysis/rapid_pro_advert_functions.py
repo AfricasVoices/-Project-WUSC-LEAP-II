@@ -77,7 +77,7 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
     :param dataset_configurations: Configuration for the export.
     :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
     :return non_relevant_uuids : A map of dataset_name -> uuids who sent messages labelled with non relevant themes.
-    :rtype non_relevant_uuids: dict of dataset_name -> list of uuids
+    :rtype non_relevant_uuids: dict of str -> list of str
     '''
 
     non_relevant_uuids = dict()
