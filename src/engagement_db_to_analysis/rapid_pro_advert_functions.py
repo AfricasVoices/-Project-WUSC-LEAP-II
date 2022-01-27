@@ -68,7 +68,7 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
     return opt_out_uuids, weekly_advert_uuids
 
 
-def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configurations):
+def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, dataset_configurations):
     '''
     Generates non relevant advert UUIDS for each episode.
 
@@ -95,7 +95,7 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
 
             for coding_config in analysis_dataset_config.coding_configs:
                 label_key = f'{coding_config.analysis_dataset}_labels'
-                
+
                 # TODO: Move this to coding_config_to_column_config()
                 analysis_configurations = core_data_analysis_config(
                     analysis_dataset_config.raw_dataset,
@@ -272,7 +272,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
 
     #Update  dataset non relevant groups to rapid_pro
     log.info(f'Syncing contacts who sent non relevant messages for each episode...')
-    non_relevant_uuids = _generate_non_relevant_advert_uuids(participants_by_column,
+    non_relevant_uuids = _generate_non_relevant_advert_uuids_by_dataset(participants_by_column,
                                                                 pipeline_config.analysis.dataset_configurations)
 
     for dataset, dataset_nc_uuids in non_relevant_uuids.items():
