@@ -261,8 +261,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     log.info(f'Found {len(opt_out_urns)} new opt_out contacts to sync ')
     consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field
     for urn in opt_out_urns:
-        rapid_pro.update_contact(urn, contact_fields= {consent_withdrawn_contact_field.key:
-                                                           consent_withdrawn_contact_field.label})
+        rapid_pro.update_contact(urn, contact_fields= {consent_withdrawn_contact_field.key: "yes"})
         synced_opt_out_uuids.append(uuid_table.data_to_uuid(urn))
 
     if cache is not None:

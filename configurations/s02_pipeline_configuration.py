@@ -210,8 +210,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         sync_config=EngagementDBToRapidProConfiguration(
         consent_withdrawn_dataset=DatasetConfiguration(
                 engagement_db_datasets=[], #TODO: to be updated
-                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn",
-                                                     label="Yes")
+                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn" )
             ),
         sync_advert_contacts = True,
         )
