@@ -84,6 +84,14 @@
       "VisibleInCoda": true
     },
     {
+      "CodeID": "code-ad083c15",
+      "CodeType": "Normal",
+      "DisplayText": "lack financial ability",
+      "NumericValue": 10,
+      "StringValue": "lack_financial_ability",
+      "VisibleInCoda": true
+    },
+    {
       "CodeID": "code-704403f6",
       "CodeType": "Normal",
       "DisplayText": "other theme",
