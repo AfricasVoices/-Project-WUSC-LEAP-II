@@ -1,13 +1,11 @@
 
+from core_data_modules.analysis import analysis_utils, AnalysisConfiguration as core_data_analysis_config
 from core_data_modules.cleaners import Codes
 from core_data_modules.logging import Logger
-from core_data_modules.analysis import analysis_utils, AnalysisConfiguration as core_data_analysis_config
 
-from src.engagement_db_to_analysis.membership_group import (get_membership_groups_data)
 from src.engagement_db_to_analysis.cache import AnalysisCache
-
+from src.engagement_db_to_analysis.membership_group import (get_membership_groups_data)
 from src.pipeline_configuration_spec import *
-
 
 log = Logger(__name__)
 
@@ -17,7 +15,10 @@ CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                      google_cloud_credentials_file_path, membership_group_dir_path):
     '''
-    Generates sets of weekly advert and  opt_out UUIDs to advertise to in rapid_pro.
+    Generates sets of weekly advert and  opt_out UUIDs to advertise to. A participant is considered to have opted out
+    if they are marked as 'consent_withdrawn' in the participants_by_column dataset. A participant is considered as
+    being needed to advertise to if they are in the participants_by_column or
+    a listening group and haven't opted out.
 
     :param participants_by_column: Participants column view TracedData object to generate the uuids from.
     :type participants_by_column: core_data_modules.traced_data.TracedData
@@ -29,7 +30,7 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
                         stored as `avf-participant-uuid` column.
     :type: membership_group_dir_path: str
     :return opt_out_uuids and weekly_advert_uuids : Set of opted out and weekly advert uuids.
-    :rtype opt_out_uuids & weekly_advert_uuids: set of str
+    :rtype opt_out_uuids & weekly_advert_uuids: (set of str, set of str)
     '''
 
     opt_out_uuids = set()
@@ -91,10 +92,13 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
 
             for coding_config in analysis_dataset_config.coding_configs:
                 label_key = f'{coding_config.analysis_dataset}_labels'
-                analysis_configurations = core_data_analysis_config(analysis_dataset_config.raw_dataset,
-                                                                analysis_dataset_config.raw_dataset,
-                                                                label_key,
-                                                                coding_config.code_scheme)
+                analysis_configurations = core_data_analysis_config(
+                    analysis_dataset_config.raw_dataset,
+                    analysis_dataset_config.raw_dataset,
+                    label_key,
+                    coding_config.code_scheme
+                )
+
                 codes = analysis_utils.get_codes_from_td(participant_td, analysis_configurations)
                 if not analysis_utils.relevant(participant_td, "consent_withdrawn", analysis_configurations):
                     for code in codes:
