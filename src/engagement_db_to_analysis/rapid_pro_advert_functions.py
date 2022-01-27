@@ -153,9 +153,9 @@ def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
     return group_uuid
 
 
-def _update_group_for_urn(urn, group_uuid, rapid_pro):
+def _add_urn_to_group(urn, group_uuid, rapid_pro):
     '''
-    Updates the target group to a contacts' groups list in rapid_pro.
+    Adds a urn to a groups in rapid_pro.
 
     :param urns: urn to update groups.
     :type urns: str
