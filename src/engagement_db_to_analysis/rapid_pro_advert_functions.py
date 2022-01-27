@@ -92,8 +92,11 @@ def _generate_non_relevant_advert_uuids(participants_by_column, dataset_configur
             if participant_td["consent_withdrawn"] == Codes.TRUE:
                 continue
 
+
             for coding_config in analysis_dataset_config.coding_configs:
                 label_key = f'{coding_config.analysis_dataset}_labels'
+                
+                # TODO: Move this to coding_config_to_column_config()
                 analysis_configurations = core_data_analysis_config(
                     analysis_dataset_config.raw_dataset,
                     analysis_dataset_config.raw_dataset,
