@@ -26,6 +26,7 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
     :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
     :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
                                                access the credentials bucket.
+    :type google_cloud_credentials_file_path: str
     :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
                         stored as `avf-participant-uuid` column.
     :type: membership_group_dir_path: str
@@ -232,6 +233,32 @@ def _sync_group_to_rapid_pro(cache, target_uuids, group_name, uuid_table, rapid_
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
                          google_cloud_credentials_file_path, membership_group_dir_path, cache_path):
+    '''
+    Syncs advert contacts to rapid_pro by:
+      1. Updating project rapid_pro consent field as 'yes' for urns considered to have opted out A participant is
+         considered to have opted out if they are marked as 'consent_withdrawn' in the participants_by_column dataset.
+      2. Adding a urn to projects weekly advert group if the urn is in the participants_by_column or a listening group and
+         has not opted out.
+      3. Adding a urn to rapid pro datasets non relevant group if the urn sent a message(s) that was labelled under the
+         non relevant themes and has not opted out.
+
+    :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
+    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param uuid_table: UUID table to use to de-identify contact urns.
+    :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable.
+    :param pipeline_config: Pipeline configuration to derive configurations needed for the sync functions.
+    :type pipeline_config: PipelineConfiguration.
+    :param rapid_pro: Rapid Pro client to sync the groups to.
+    :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
+    :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
+                                               access the credentials bucket.
+    :type google_cloud_credentials_file_path: str.
+    :param membership_group_dir_path: Path to directory containing de-identified membership groups CSVs containing membership groups data
+                        stored as `avf-participant-uuid` column.
+    :type: membership_group_dir_path: str.
+    :param cache_path: Path to a directory to get uuids synced in previous pipeline run and set uuids synced in this session.
+    :type cache_path: str
+    '''
 
     if cache_path is None:
         cache = None
