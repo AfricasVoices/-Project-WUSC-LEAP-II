@@ -136,7 +136,6 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 
 
 def _ensure_rapid_pro_group_exists(group_name, rapid_pro):
-
     '''
     Checks if a group exists in rapid_pro, creates one if it does not exist, and returns the group uuid.
 
