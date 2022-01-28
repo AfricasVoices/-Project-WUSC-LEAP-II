@@ -13,6 +13,7 @@ from src.engagement_db_to_analysis.column_view_conversion import (convert_to_mes
                                                                   convert_to_participants_column_format)
 from src.engagement_db_to_analysis.traced_data_filters import filter_messages
 from src.engagement_db_to_analysis.membership_group import (tag_membership_groups_participants)
+from src.engagement_db_to_analysis.rapid_pro_advert_functions import sync_advert_contacts_to_rapidpro
 
 log = Logger(__name__)
 
@@ -163,8 +164,9 @@ def export_traced_data(traced_data, export_path):
         TracedDataJsonIO.export_traced_data_iterable_to_jsonl(traced_data, f)
 
 
-def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_config, engagement_db, membership_group_dir_path,
-                            output_dir, cache_path=None):
+def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_config, uuid_table, engagement_db, rapid_pro,
+                            membership_group_dir_path, output_dir, cache_path=None):
+
     analysis_dataset_configurations = pipeline_config.analysis.dataset_configurations
     # TODO: Tidy up which functions get passed analysis_configs and which get passed dataset_configurations
 
@@ -227,3 +229,7 @@ def generate_analysis_files(user, google_cloud_credentials_file_path, pipeline_c
         google_drive_upload.upload_all_files_in_dir(
             f"{output_dir}/automated-analysis", f"{drive_dir}/automated-analysis", recursive=True
         )
+
+    if pipeline_config.rapid_pro_target.sync_config.sync_advert_contacts:
+        sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
+                             google_cloud_credentials_file_path, membership_group_dir_path, cache_path)
