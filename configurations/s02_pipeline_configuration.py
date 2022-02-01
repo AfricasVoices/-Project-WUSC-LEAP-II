@@ -37,6 +37,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "nationality", "nationality"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "gender", "gender"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "preffered_language", "household_language"),
 
                     FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01"),
                     FlowResultConfiguration("wusc_leap_s02e02_kalobeyei_activation", "rqa_s02e02", "leap_s02e02"),
@@ -337,6 +338,17 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
+                engagement_db_datasets=["nationality"],
+                dataset_type=DatasetTypes.DEMOGRAPHIC,
+                raw_dataset="nationality_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("nationality"),
+                        analysis_dataset="nationality"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
                 engagement_db_datasets=["location"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="location_raw",
@@ -371,7 +383,29 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                       )
                     ),
                 ]
-            )
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["disability", "disabled"],
+                dataset_type=DatasetTypes.DEMOGRAPHIC,
+                raw_dataset="disability_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("disabled"),
+                        analysis_dataset="disability"
+                    )
+                ]
+            ),
+            AnalysisDatasetConfiguration(
+                engagement_db_datasets=["household_language"],
+                dataset_type=DatasetTypes.DEMOGRAPHIC,
+                raw_dataset="household_language_raw",
+                coding_configs=[
+                    CodingConfiguration(
+                        code_scheme=load_code_scheme("household_language"),
+                        analysis_dataset="household_language"
+                    )
+                ]
+            ),
         ],
         ws_correct_dataset_code_scheme=load_code_scheme("ws_correct_dataset")
     ),
