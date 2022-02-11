@@ -28,7 +28,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         RapidProSource(
             rapid_pro=RapidProClientConfiguration(
                 domain="textit.com",
-                token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
+                token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt",
             ),
             sync_config=RapidProToEngagementDBConfiguration(
                 flow_result_configurations=[
@@ -203,6 +203,19 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             project_users_file_url="gs://avf-project-datasets/2021/WUSC-LEAP/coda_users.json"
         )
     ),
+    rapid_pro_target=RapidProTarget(
+        rapid_pro=RapidProClientConfiguration(
+            domain="textit.com",
+            token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
+        ),
+        sync_config=EngagementDBToRapidProConfiguration(
+        consent_withdrawn_dataset=DatasetConfiguration(
+                engagement_db_datasets=[], #TODO: to be updated
+                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn" )
+            ),
+        sync_advert_contacts = True,
+        )
+    ),
     analysis=AnalysisConfiguration(
         google_drive_upload=GoogleDriveUploadConfiguration(
             credentials_file_url="gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
@@ -220,6 +233,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e01"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e01_raw",
+                dataset_name = "Leap_s02e01",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e01"),
@@ -231,6 +245,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e02"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e02_raw",
+                dataset_name = "Leap_s02e02",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e02"),
@@ -242,6 +257,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e03"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e03_raw",
+                dataset_name = "Leap_s02e03",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e03"),
@@ -253,6 +269,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e04"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e04_raw",
+                dataset_name = "Leap_s02e04",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e04"),
@@ -264,6 +281,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e05"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e05_raw",
+                dataset_name = "Leap_s02e05",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e05"),
@@ -275,6 +293,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e06"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e06_raw",
+                dataset_name = "Leap_s02e06",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e06"),
@@ -286,6 +305,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e07"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e07_raw",
+                dataset_name = "Leap_s02e07",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e07"),
@@ -297,6 +317,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["leap_s02e08"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e08_raw",
+                dataset_name = "Leap_s02e08",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e08"),
@@ -307,6 +328,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["leap_s02_lessons_learnt"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                dataset_name="LEAP_s02_lessons_learnt",
                 raw_dataset="lessons_learnt_raw",
                 coding_configs=[
                     CodingConfiguration(
@@ -318,6 +340,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["leap_s02_engagement_suggestions"],
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
+                dataset_name="LEAP_s02_engagement_suggestions",
                 raw_dataset="engagement_suggestions_raw",
                 coding_configs=[
                     CodingConfiguration(
@@ -330,6 +353,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["gender"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="gender_raw",
+                dataset_name = "Leap_s02_gender",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("gender"),
@@ -352,6 +376,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["location"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="location_raw",
+                dataset_name = "Leap_s02_location",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("location"),
@@ -362,6 +387,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             AnalysisDatasetConfiguration(
                 engagement_db_datasets=["age"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
+                dataset_name = "Leap_s02_age",
                 raw_dataset="age_raw",
                 coding_configs=[
                     CodingConfiguration(
