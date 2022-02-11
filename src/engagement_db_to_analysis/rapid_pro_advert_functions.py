@@ -21,6 +21,7 @@ def time_it(func):
         return result
     return wrapper
 
+
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                      google_cloud_credentials_file_path, membership_group_dir_path):
     '''
@@ -142,6 +143,7 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 
     return urns
 
+
 def _get_uuids_to_sync(target_uuids, synced_uuids):
     '''
     Generates uuids from target group, to sync in the current pipeline run, based on previously synced uuids in cache.
@@ -161,6 +163,7 @@ def _get_uuids_to_sync(target_uuids, synced_uuids):
 
     return uuids_to_sync
 
+
 @time_it
 def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact_field_name, uuid_table, rapid_pro):
     '''
@@ -168,7 +171,7 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
 
     :param cache: An instance of AnalysisCache to get uuids synced in previous pipeline run and set uuids synced in this session.
     :param type: AnalysisCache
-    :param target_uuids: Set containing all uuids for the target context e.g opt_out uuids.
+    :param target_uuids: Set containing all uuids for the target context e.g opt_out uuids, weekly advert uuids.
     :type target_uuids: set of str
     :param advert_contact_field_name: Name of the contact field to update for the advert urns in rapid_pro.
     :type advert_contact_field_name: str
@@ -181,13 +184,15 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
     synced_uuids = []
     if cache is not None:
         synced_dataset_nc_uuids = cache.get_synced_uuids(advert_contact_field_name)
-        log.info(f'Found {len(synced_dataset_nc_uuids)} previously uploaded to {advert_contact_field_name}...')
+        log.info(f'Found {len(synced_dataset_nc_uuids)} uuids whose {advert_contact_field_name} was synced in previous '
+                 f'pipeline run...')
 
     # If cache is available, check for uuids to sync in the current pipeline run.
     uuids_to_sync = _get_uuids_to_sync(target_uuids, synced_uuids)
 
     # Re-identify the uuids.
     urns_to_sync = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
+    log.info(f'Syncing {len(urns_to_sync)} uuids in this run ')
 
     # Update the advert contact field for the target urns.
     for urn in urns_to_sync:
@@ -240,29 +245,12 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     )
 
     log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
-    #check for opt out uuids to sync in this pipeline run
-    synced_opt_out_uuids = []
-    if cache is not None:
-        synced_opt_out_uuids = cache.get_synced_uuids('opt_out_uuids')
-        log.info(f"Found {len(synced_opt_out_uuids)} previously synced consent withdrawn uuids...")
-        
-    opt_out_uuids_to_sync = _get_uuids_to_sync(opt_out_uuids, synced_opt_out_uuids)
-
-    # Re-identify the uuids.
-    opt_out_urns = _convert_uuids_to_urns(opt_out_uuids_to_sync, uuid_table)
-
     # Update consent_withdrawn contact field for opt_out contacts
-    log.info(f'Found {len(opt_out_urns)} new opt_out contacts to sync ')
     consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field
-    for urn in opt_out_urns:
-        rapid_pro.update_contact(urn, contact_fields= {consent_withdrawn_contact_field.key: "yes"})
-        synced_opt_out_uuids.append(uuid_table.data_to_uuid(urn))
-
-    if cache is not None:
-        cache.set_synced_uuids('opt_out_uuids', synced_opt_out_uuids)
+    _sync_advert_contacts_fields_to_rapidpro(cache, opt_out_uuids, consent_withdrawn_contact_field, uuid_table, rapid_pro)
 
     log.info(f'Syncing weekly advert contacts to rapid pro...')
-    advert_contact_field_name = "wusc_leap_advert_contacts_test"
+    advert_contact_field_name = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.key
     _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, advert_contact_field_name, uuid_table, rapid_pro)
 
     #Update  dataset non relevant groups to rapid_pro

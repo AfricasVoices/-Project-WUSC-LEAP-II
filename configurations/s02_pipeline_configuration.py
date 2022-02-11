@@ -213,6 +213,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=[], #TODO: to be updated
                 rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn" )
             ),
+        weekly_advert_contact_field=ContactField(key="wusc_leap_advert_contacts_test"),
         sync_advert_contacts = True,
         )
     ),

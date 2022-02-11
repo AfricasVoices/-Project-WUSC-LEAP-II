@@ -23,6 +23,7 @@ class DatasetConfiguration:
 
 @dataclass
 class EngagementDBToRapidProConfiguration:
+    weekly_advert_contact_field: ContactField
     normal_datasets: Optional[List[DatasetConfiguration]] = None
     consent_withdrawn_dataset: Optional[DatasetConfiguration] = None
     write_mode: str = WriteModes.SHOW_PRESENCE
