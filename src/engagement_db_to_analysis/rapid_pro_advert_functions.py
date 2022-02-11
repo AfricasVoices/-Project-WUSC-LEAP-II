@@ -11,7 +11,7 @@ log = Logger(__name__)
 
 CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
-import time
+import time #Todo remove before merging
 def time_it(func):
     def wrapper(*args, **kwargs):
         start = time.time()
@@ -184,7 +184,7 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
     synced_uuids = []
     if cache is not None:
         synced_dataset_nc_uuids = cache.get_synced_uuids(advert_contact_field_name)
-        log.info(f'Found {len(synced_dataset_nc_uuids)} uuids whose {advert_contact_field_name} was synced in previous '
+        log.info(f'Found {len(synced_dataset_nc_uuids)} uuids whose {advert_contact_field_name} synced in previous '
                  f'pipeline run...')
 
     # If cache is available, check for uuids to sync in the current pipeline run.
@@ -246,12 +246,12 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
 
     log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
     # Update consent_withdrawn contact field for opt_out contacts
-    consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field
+    consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field.key
     _sync_advert_contacts_fields_to_rapidpro(cache, opt_out_uuids, consent_withdrawn_contact_field, uuid_table, rapid_pro)
 
     log.info(f'Syncing weekly advert contacts to rapid pro...')
-    advert_contact_field_name = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.key
-    _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, advert_contact_field_name, uuid_table, rapid_pro)
+    weekly_advert_contact_field = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.key
+    _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, weekly_advert_contact_field, uuid_table, rapid_pro)
 
     #Update  dataset non relevant groups to rapid_pro
     log.info(f'Syncing contacts who sent non relevant messages for each episode...')
@@ -259,5 +259,5 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
                                                                 pipeline_config.analysis.dataset_configurations)
 
     for dataset, dataset_nc_uuids in non_relevant_uuids.items():
-        advert_contact_field_name = f"{pipeline_config.pipeline_name}_{dataset}_nc_advert_contacts"
-        _sync_advert_contacts_fields_to_rapidpro(cache, dataset_nc_uuids, advert_contact_field_name, uuid_table, rapid_pro)
+        dataset_nc_contact_field_name = f"{pipeline_config.pipeline_name}_{dataset}_nc_advert_contacts"
+        _sync_advert_contacts_fields_to_rapidpro(cache, dataset_nc_uuids, dataset_nc_contact_field_name, uuid_table, rapid_pro)
