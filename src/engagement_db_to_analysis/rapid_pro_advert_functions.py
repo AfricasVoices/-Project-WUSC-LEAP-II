@@ -93,12 +93,13 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
 
     non_relevant_uuids = dict()
     for analysis_dataset_config in dataset_configurations:
-        if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC:
+        if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC or\
+                analysis_dataset_config.rapid_pro_nc_group_label is None:
             continue
 
         assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
 
-        non_relevant_uuids[analysis_dataset_config.dataset_name] = set()
+        non_relevant_uuids[analysis_dataset_config.rapid_pro_nc_group_label] = set()
         for participant_td in participants_by_column:
             if participant_td["consent_withdrawn"] == Codes.TRUE:
                 continue
@@ -119,7 +120,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
                     for code in codes:
                         if code.string_value in ["showtime_question", "greeting", "opt_in",
                                                  "about_conversation", "gratitude", "question", "NC"]:
-                            non_relevant_uuids[analysis_dataset_config.dataset_name].add(participant_td["participant_uuid"])
+                            non_relevant_uuids[analysis_dataset_config.rapid_pro_nc_group_label].add(participant_td["participant_uuid"])
 
     return non_relevant_uuids
 
@@ -163,6 +164,32 @@ def _get_uuids_to_sync(target_uuids, synced_uuids):
 
     return uuids_to_sync
 
+def _ensure_contact_field_exists(workspace_contact_fields, target_contact_field_label, rapid_pro):
+    """
+    Checks if a workspace contains the target contact field, creates one otherwise.
+
+    :param workspace_contact_fields: All contact fields in the rapid_pro workspace.
+    :type workspace_contact_fields: list of temba_client.v2.types.Field
+    :param target_contact_field_label: The name of the contact field of interest. Rapid_pro uses this to create the
+                                       contact field if it does not exist.
+    :type: target_contact_field_label: str
+    :param rapid_pro: Rapid Pro client to check the contact fields from.
+    :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
+    :param rapid_pro: The target contact field key
+    :type target_contact_field_key: str
+    """
+    workspace_contact_field_labels = [cf.label for cf in workspace_contact_fields]
+    target_contact_field_key = None
+    if target_contact_field_label in workspace_contact_field_labels:
+        for workspace_contact_field in workspace_contact_fields:
+            if target_contact_field_label == workspace_contact_field.label:
+                target_contact_field_key = workspace_contact_field.key
+                break
+    else:
+        log.info(f'Creating contact field with label: {target_contact_field_key} in the rapidpro workspace...')
+        target_contact_field_key = rapid_pro.create_field(label=target_contact_field_label).key
+
+    return target_contact_field_key
 
 @time_it
 def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact_field_name, uuid_table, rapid_pro):
@@ -183,24 +210,28 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
 
     synced_uuids = []
     if cache is not None:
-        synced_dataset_nc_uuids = cache.get_synced_uuids(advert_contact_field_name)
-        log.info(f'Found {len(synced_dataset_nc_uuids)} uuids whose {advert_contact_field_name} synced in previous '
-                 f'pipeline run...')
+        previously_synced_non_relevant_uuids = cache.get_synced_uuids(advert_contact_field_name)
+        log.info(f'Found {len(previously_synced_non_relevant_uuids)} uuids whose {advert_contact_field_name} contact '
+                 f'field was synced in previous pipeline run...')
+        synced_uuids.extend(previously_synced_non_relevant_uuids)
 
     # If cache is available, check for uuids to sync in the current pipeline run.
     uuids_to_sync = _get_uuids_to_sync(target_uuids, synced_uuids)
 
-    # Re-identify the uuids.
-    urns_to_sync = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
-    log.info(f'Syncing {len(urns_to_sync)} uuids in this run ')
+    if len(uuids_to_sync) > 0:
+        log.info(f'Syncing {len(uuids_to_sync)} urns in this run ')
+        # Re-identify the uuids.
+        urns_to_sync = _convert_uuids_to_urns(uuids_to_sync, uuid_table)
+        # Update the advert contact field for the target urns.
+        for urn in urns_to_sync:
+            rapid_pro.update_contact(urn, contact_fields={advert_contact_field_name: "yes"})
+            synced_uuids.append(uuid_table.data_to_uuid(urn))
 
-    # Update the advert contact field for the target urns.
-    for urn in urns_to_sync:
-        rapid_pro.update_contact(urn, contact_fields={advert_contact_field_name: "yes"})
-        synced_uuids.append(uuid_table.data_to_uuid(urn))
+        if cache is not None:
+            cache.set_synced_uuids(advert_contact_field_name, synced_uuids)
 
-    if cache is not None:
-        cache.set_synced_uuids(advert_contact_field_name, synced_uuids)
+    else:
+        log.info(f'Found {len(uuids_to_sync)} uuids to sync in this run skipping...')
 
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
@@ -244,20 +275,32 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
                                                 google_cloud_credentials_file_path, membership_group_dir_path
     )
 
+    # Get workspace contact fields for checking in whether our target contact fields exists
+    workspace_contact_fields = rapid_pro.get_fields()
+
     log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
     # Update consent_withdrawn contact field for opt_out contacts
-    consent_withdrawn_contact_field = pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field.key
-    _sync_advert_contacts_fields_to_rapidpro(cache, opt_out_uuids, consent_withdrawn_contact_field, uuid_table, rapid_pro)
+    consent_withdrawn_contact_field_label = \
+        pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field.label
+    consent_withdrawn_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
+                                                                       consent_withdrawn_contact_field_label, rapid_pro)
+    _sync_advert_contacts_fields_to_rapidpro(cache, opt_out_uuids, consent_withdrawn_contact_field_key, uuid_table,
+                                             rapid_pro)
 
     log.info(f'Syncing weekly advert contacts to rapid pro...')
-    weekly_advert_contact_field = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.key
-    _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, weekly_advert_contact_field, uuid_table, rapid_pro)
+    weekly_advert_contact_field_label = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.label
+    weekly_advert_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
+                                                                       weekly_advert_contact_field_label, rapid_pro)
+    _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, weekly_advert_contact_field_key, uuid_table,
+                                             rapid_pro)
 
     #Update  dataset non relevant groups to rapid_pro
     log.info(f'Syncing contacts who sent non relevant messages for each episode...')
     non_relevant_uuids = _generate_non_relevant_advert_uuids_by_dataset(participants_by_column,
                                                                 pipeline_config.analysis.dataset_configurations)
 
-    for dataset, dataset_nc_uuids in non_relevant_uuids.items():
-        dataset_nc_contact_field_name = f"{pipeline_config.pipeline_name}_{dataset}_nc_advert_contacts"
-        _sync_advert_contacts_fields_to_rapidpro(cache, dataset_nc_uuids, dataset_nc_contact_field_name, uuid_table, rapid_pro)
+    for dataset_rapid_pro_non_relevant_label, non_relevant_uuids in non_relevant_uuids.items():
+        dataset_rapid_pro_non_relevant_key = _ensure_contact_field_exists(workspace_contact_fields,
+                                                                       dataset_rapid_pro_non_relevant_label, rapid_pro)
+        _sync_advert_contacts_fields_to_rapidpro(cache, non_relevant_uuids, dataset_rapid_pro_non_relevant_key,
+                                                 uuid_table, rapid_pro)
