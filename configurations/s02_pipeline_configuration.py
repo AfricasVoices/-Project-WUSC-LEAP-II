@@ -36,7 +36,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "location", "location"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "nationality", "nationality"),
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "gender", "gender"),
-                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"),
+                    FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "disability", "disability"), #Todo standardise and rename this to disabled everywhere
                     FlowResultConfiguration("wusc_leap_s02_kalobeyei_demogs", "preffered_language", "household_language"),
 
                     FlowResultConfiguration("wusc_leap_s02e01_kalobeyei_activation", "rqa_s02e01", "leap_s02e01"),
@@ -365,6 +365,7 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 engagement_db_datasets=["nationality"],
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="nationality_raw",
+                dataset_name="Leap_s02_nationality",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("nationality"),
@@ -411,9 +412,10 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["disability", "disabled"],
+                engagement_db_datasets=["disabled"], #Todo standardise and rename this to disabled everywhere in s03
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="disability_raw",
+                dataset_name="Leap_s02_disabled",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("disabled"),
@@ -422,9 +424,10 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 ]
             ),
             AnalysisDatasetConfiguration(
-                engagement_db_datasets=["household_language"],
+                engagement_db_datasets=["household_language"], #Todo rename this to preffered_language everywhere in s03
                 dataset_type=DatasetTypes.DEMOGRAPHIC,
                 raw_dataset="household_language_raw",
+                dataset_name="Leap_s02_preffered_language",
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("household_language"),
