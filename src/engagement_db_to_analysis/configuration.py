@@ -37,6 +37,7 @@ class AnalysisDatasetConfiguration:
     raw_dataset: str
     dataset_name: str
     coding_configs: [CodingConfiguration]
+    rapid_pro_non_relevant_label: str = None
 
 
 @dataclass
