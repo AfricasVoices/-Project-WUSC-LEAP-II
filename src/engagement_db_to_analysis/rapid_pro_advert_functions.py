@@ -251,7 +251,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable.
     :param pipeline_config: Pipeline configuration to derive configurations needed for the sync functions.
     :type pipeline_config: PipelineConfiguration.
-    :param rapid_pro: Rapid Pro client to sync the groups to.
+    :param rapid_pro: Rapid Pro client to sync the contact fields to.
     :type rapid_pro: rapid_pro_tools.rapid_pro.RapidProClient
     :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
                                                access the credentials bucket.
