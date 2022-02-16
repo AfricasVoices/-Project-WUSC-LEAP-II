@@ -211,7 +211,9 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
         sync_config=EngagementDBToRapidProConfiguration(
         consent_withdrawn_dataset=DatasetConfiguration(
                 engagement_db_datasets=[], #TODO: to be updated
-                rapid_pro_contact_field=ContactField(label="leap s02 kalobeyei consent withdrawn" ) # Rapidpro contact field display label
+                rapid_pro_contact_field=ContactField(label="leap s02 kalobeyei consent withdrawn" ) # Rapidpro contact_field
+                                                                        # display label. RP will use this to create a new contact_field
+                                                                        # if it does not exist.
             ),
         weekly_advert_contact_field=ContactField(label="leap s02 weekly advert contacts"),
         sync_advert_contacts = True,
