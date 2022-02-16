@@ -94,12 +94,12 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
     non_relevant_uuids = dict()
     for analysis_dataset_config in dataset_configurations:
         if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC or\
-                analysis_dataset_config.rapid_pro_nc_group_label is None:
+                analysis_dataset_config.rapid_pro_non_relevant_label is None:
             continue
 
         assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
 
-        non_relevant_uuids[analysis_dataset_config.rapid_pro_nc_group_label] = set()
+        non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_label] = set()
         for participant_td in participants_by_column:
             if participant_td["consent_withdrawn"] == Codes.TRUE:
                 continue
@@ -120,7 +120,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
                     for code in codes:
                         if code.string_value in ["showtime_question", "greeting", "opt_in",
                                                  "about_conversation", "gratitude", "question", "NC"]:
-                            non_relevant_uuids[analysis_dataset_config.rapid_pro_nc_group_label].add(participant_td["participant_uuid"])
+                            non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_label].add(participant_td["participant_uuid"])
 
     return non_relevant_uuids
 
