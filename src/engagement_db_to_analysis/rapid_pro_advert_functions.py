@@ -11,6 +11,8 @@ log = Logger(__name__)
 
 CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
+#TODO move this to engagement db to rapid_pro sync once we support syncing imputed labels to db
+
 import time #Todo remove before merging
 def time_it(func):
     def wrapper(*args, **kwargs):
