@@ -32,8 +32,8 @@ def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_c
     being needed to advertise to if they are in the participants_by_column or
     a listening group and haven't opted out.
 
-    :param participants_by_column: Participants column view TracedData object to generate the uuids from.
-    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param participants_by_column: list of participants column view TracedData object to generate the uuids from.
+    :type participants_by_column: list of core_data_modules.traced_data.TracedData
     :param analysis_config: Configuration for the export.
     :type analysis_config: src.engagement_db_to_analysis.configuration.AnalysisConfiguration
     :param google_cloud_credentials_file_path: Path to the Google Cloud service account credentials file to use to
@@ -85,8 +85,8 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
     '''
     Generates non relevant advert UUIDS for each episode.
 
-    :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
-    :type participants_by_column: core_data_modules.traced_data.TracedData
+    :param participants_by_column: list of participants column view Traced Data object to generate the uuids from.
+    :type participants_by_column: list of core_data_modules.traced_data.TracedData
     :param dataset_configurations: Configuration for the export.
     :type dataset_configurations: src.engagement_db_to_analysis.configuration.AnalysisConfiguration.dataset_configurations
     :return non_relevant_uuids : A map of dataset_name -> uuids who sent messages labelled with non relevant themes.
