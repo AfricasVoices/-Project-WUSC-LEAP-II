@@ -209,8 +209,8 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
             rapid_pro.update_contact(urn, contact_fields={advert_contact_field_name: "yes"})
             synced_uuids.append(uuid_table.data_to_uuid(urn))
 
-        if cache is not None:
-            cache.set_synced_uuids(advert_contact_field_name, synced_uuids)
+            if cache is not None:
+                cache.set_synced_uuids(advert_contact_field_name, synced_uuids)
 
     else:
         log.info(f'Found {len(uuids_to_sync)} uuids to sync in this run skipping...')
