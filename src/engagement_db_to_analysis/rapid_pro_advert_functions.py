@@ -128,8 +128,8 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
     """
     Converts a list of UUIDs to their respective rapid_pro urns.
 
-    :param uuids_group: list of participant UUIDs to convert.
-    :type uuids_group: list of participant UUIDs.
+    :param uuids_group: set of participant UUIDs to convert.
+    :type uuids_group: set of participant UUIDs.
     :param uuid_table: UUID table to use to de-identify contact urns.
     :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable
     :return urns: a set of de-identified urn.
@@ -143,25 +143,6 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
 
     return urns
 
-
-def _get_uuids_to_sync(target_uuids, synced_uuids):
-    '''
-    Generates uuids from target group, to sync in the current pipeline run, based on previously synced uuids in cache.
-
-    :param target_uuids: Set containing all uuids for the target context e.g opt_out uuids
-    :type target_uuids: set of str
-    :param synced_uuids: List containing all uuids synced in previous pipeline run.
-    :type synced_uuids: list of str
-    :return uuids_to_sync: A set of uuids to sync in the current pipeline run.
-    :rtype uuids_to_sync: set of str
-    '''
-
-    uuids_to_sync = set()
-    for uid in target_uuids:
-        if uid not in synced_uuids:
-            uuids_to_sync.add(uid)
-
-    return uuids_to_sync
 
 def _ensure_contact_field_exists(workspace_contact_fields, target_contact_field_label, rapid_pro):
     """
@@ -215,7 +196,7 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
         synced_uuids.extend(previously_synced_non_relevant_uuids)
 
     # If cache is available, check for uuids to sync in the current pipeline run.
-    uuids_to_sync = _get_uuids_to_sync(target_uuids, synced_uuids)
+    uuids_to_sync = target_uuids - set(synced_uuids)
 
     if len(uuids_to_sync) > 0:
         log.info(f'Syncing {len(uuids_to_sync)} urns in this run ')
