@@ -93,8 +93,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
 
     non_relevant_uuids = dict()
     for analysis_dataset_config in dataset_configurations:
-        if analysis_dataset_config.dataset_type == DatasetTypes.DEMOGRAPHIC or\
-                analysis_dataset_config.rapid_pro_non_relevant_label is None:
+        if analysis_dataset_config.rapid_pro_non_relevant_label is None:
             continue
 
         assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
