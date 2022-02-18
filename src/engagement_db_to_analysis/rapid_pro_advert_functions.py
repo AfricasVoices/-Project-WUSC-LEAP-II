@@ -174,7 +174,7 @@ def _ensure_contact_field_exists(workspace_contact_fields, target_contact_field_
 
 
 @time_it
-def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact_field_name, uuid_table, rapid_pro):
+def _sync_advert_contacts_fields_to_rapid_pro(cache, target_uuids, advert_contact_field_name, uuid_table, rapid_pro):
     '''
     Updates the advert contact field for the target urns.
 
@@ -266,14 +266,14 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
         pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field.label
     consent_withdrawn_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                        consent_withdrawn_contact_field_label, rapid_pro)
-    _sync_advert_contacts_fields_to_rapidpro(cache, opt_out_uuids, consent_withdrawn_contact_field_key, uuid_table,
+    _sync_advert_contacts_fields_to_rapid_pro(cache, opt_out_uuids, consent_withdrawn_contact_field_key, uuid_table,
                                              rapid_pro)
 
     log.info(f'Syncing weekly advert contacts to rapid pro...')
     weekly_advert_contact_field_label = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.label
     weekly_advert_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                    weekly_advert_contact_field_label, rapid_pro)
-    _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, weekly_advert_contact_field_key, uuid_table,
+    _sync_advert_contacts_fields_to_rapid_pro(cache, weekly_advert_uuids, weekly_advert_contact_field_key, uuid_table,
                                              rapid_pro)
 
     #Update  dataset non relevant groups to rapid_pro
@@ -284,5 +284,5 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     for dataset_rapid_pro_non_relevant_label, non_relevant_uuids in non_relevant_uuids.items():
         dataset_rapid_pro_non_relevant_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                           dataset_rapid_pro_non_relevant_label, rapid_pro)
-        _sync_advert_contacts_fields_to_rapidpro(cache, non_relevant_uuids, dataset_rapid_pro_non_relevant_key,
+        _sync_advert_contacts_fields_to_rapid_pro(cache, non_relevant_uuids, dataset_rapid_pro_non_relevant_key,
                                                  uuid_table, rapid_pro)
