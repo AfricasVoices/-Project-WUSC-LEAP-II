@@ -23,7 +23,7 @@ def time_it(func):
 
 
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
-                                     google_cloud_credentials_file_path, membership_group_dir_path):
+                                              google_cloud_credentials_file_path, membership_group_dir_path):
     '''
     Generates sets of weekly advert and  opt_out UUIDs to advertise to. A participant is considered to have opted out
     if they are marked as 'consent_withdrawn' in the participants_by_column dataset. A participant is considered as
@@ -217,7 +217,7 @@ def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact
 
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
-                         google_cloud_credentials_file_path, membership_group_dir_path, cache_path):
+                                     google_cloud_credentials_file_path, membership_group_dir_path, cache_path):
     '''
     Syncs advert contacts to rapid_pro by:
       1. Updating project rapid_pro consent field as 'yes' for urns considered to have opted out A participant is
@@ -253,8 +253,8 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
         cache = AnalysisCache(f"{cache_path}")
 
     opt_out_uuids, weekly_advert_uuids = _generate_weekly_advert_and_opt_out_uuids(
-                                                participants_by_column, pipeline_config.analysis,
-                                                google_cloud_credentials_file_path, membership_group_dir_path
+        participants_by_column, pipeline_config.analysis,
+        google_cloud_credentials_file_path, membership_group_dir_path
     )
 
     # Get workspace contact fields to check whether our target contact field exists
@@ -272,17 +272,17 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     log.info(f'Syncing weekly advert contacts to rapid pro...')
     weekly_advert_contact_field_label = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.label
     weekly_advert_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
-                                                                       weekly_advert_contact_field_label, rapid_pro)
+                                                                   weekly_advert_contact_field_label, rapid_pro)
     _sync_advert_contacts_fields_to_rapidpro(cache, weekly_advert_uuids, weekly_advert_contact_field_key, uuid_table,
                                              rapid_pro)
 
     #Update  dataset non relevant groups to rapid_pro
     log.info(f'Syncing contacts who sent non relevant messages for each episode...')
     non_relevant_uuids = _generate_non_relevant_advert_uuids_by_dataset(participants_by_column,
-                                                                pipeline_config.analysis.dataset_configurations)
+                                                                        pipeline_config.analysis.dataset_configurations)
 
     for dataset_rapid_pro_non_relevant_label, non_relevant_uuids in non_relevant_uuids.items():
         dataset_rapid_pro_non_relevant_key = _ensure_contact_field_exists(workspace_contact_fields,
-                                                                       dataset_rapid_pro_non_relevant_label, rapid_pro)
+                                                                          dataset_rapid_pro_non_relevant_label, rapid_pro)
         _sync_advert_contacts_fields_to_rapidpro(cache, non_relevant_uuids, dataset_rapid_pro_non_relevant_key,
                                                  uuid_table, rapid_pro)
