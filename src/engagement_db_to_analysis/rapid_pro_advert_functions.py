@@ -98,7 +98,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
 
         assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
 
-        non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_label] = set()
+        non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_field.label] = set()
         for participant_td in participants_by_column:
             if participant_td["consent_withdrawn"] == Codes.TRUE:
                 continue
@@ -228,7 +228,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
          non relevant themes and have not opted out.
 
     :param participants_by_column: Participants column view Traced Data object to generate the uuids from.
-    :type participants_by_column: List of core_data_modules.traced_data.TracedData
+    :type participants_by_column: list of core_data_modules.traced_data.TracedData
     :param uuid_table: UUID table to use to de-identify contact urns.
     :type uuid_table: id_infrastructure.firestore_uuid_table.FirestoreUuidTable.
     :param pipeline_config: Pipeline configuration to derive configurations needed for the sync functions.
