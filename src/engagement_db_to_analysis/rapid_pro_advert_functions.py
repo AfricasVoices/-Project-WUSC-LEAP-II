@@ -144,6 +144,7 @@ def _convert_uuids_to_urns(uuids_group, uuid_table):
     return urns
 
 
+#Todo: standardize and move to rapidpro tools
 def _ensure_contact_field_exists(workspace_contact_fields, target_contact_field_label, rapid_pro):
     """
     Checks if a workspace contains the target contact field, creates one otherwise.
@@ -170,6 +171,7 @@ def _ensure_contact_field_exists(workspace_contact_fields, target_contact_field_
         target_contact_field_key = rapid_pro.create_field(label=target_contact_field_label).key
 
     return target_contact_field_key
+
 
 @time_it
 def _sync_advert_contacts_fields_to_rapidpro(cache, target_uuids, advert_contact_field_name, uuid_table, rapid_pro):
@@ -255,7 +257,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
                                                 google_cloud_credentials_file_path, membership_group_dir_path
     )
 
-    # Get workspace contact fields for checking in whether our target contact fields exists
+    # Get workspace contact fields to check whether our target contact field exists
     workspace_contact_fields = rapid_pro.get_fields()
 
     log.info(f'Syncing consent_withdrawn contact_fields in rapidpro... ')
