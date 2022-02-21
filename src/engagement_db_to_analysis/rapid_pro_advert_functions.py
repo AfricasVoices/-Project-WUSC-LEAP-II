@@ -95,7 +95,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
 
     non_relevant_uuids = dict()
     for analysis_dataset_config in dataset_configurations:
-        if analysis_dataset_config.rapid_pro_non_relevant_label is None:
+        if analysis_dataset_config.rapid_pro_non_relevant_field is None:
             continue
 
         assert analysis_dataset_config.dataset_type == DatasetTypes.RESEARCH_QUESTION_ANSWER
@@ -121,7 +121,7 @@ def _generate_non_relevant_advert_uuids_by_dataset(participants_by_column, datas
                     for code in codes:
                         if code.string_value in ["showtime_question", "greeting", "opt_in",
                                                  "about_conversation", "gratitude", "question", "NC"]:
-                            non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_label].add(participant_td["participant_uuid"])
+                            non_relevant_uuids[analysis_dataset_config.rapid_pro_non_relevant_field.label].add(participant_td["participant_uuid"])
 
     return non_relevant_uuids
 
@@ -268,6 +268,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
         pipeline_config.rapid_pro_target.sync_config.consent_withdrawn_dataset.rapid_pro_contact_field.label
     consent_withdrawn_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                        consent_withdrawn_contact_field_label, rapid_pro)
+
     _sync_advert_contacts_fields_to_rapid_pro(cache, opt_out_uuids, consent_withdrawn_contact_field_key, uuid_table,
                                              rapid_pro)
 
@@ -275,6 +276,7 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     weekly_advert_contact_field_label = pipeline_config.rapid_pro_target.sync_config.weekly_advert_contact_field.label
     weekly_advert_contact_field_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                    weekly_advert_contact_field_label, rapid_pro)
+
     _sync_advert_contacts_fields_to_rapid_pro(cache, weekly_advert_uuids, weekly_advert_contact_field_key, uuid_table,
                                              rapid_pro)
 
@@ -286,5 +288,6 @@ def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipelin
     for dataset_rapid_pro_non_relevant_label, non_relevant_uuids in non_relevant_uuids.items():
         dataset_rapid_pro_non_relevant_key = _ensure_contact_field_exists(workspace_contact_fields,
                                                                           dataset_rapid_pro_non_relevant_label, rapid_pro)
+
         _sync_advert_contacts_fields_to_rapid_pro(cache, non_relevant_uuids, dataset_rapid_pro_non_relevant_key,
                                                  uuid_table, rapid_pro)
