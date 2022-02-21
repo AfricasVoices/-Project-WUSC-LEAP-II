@@ -13,17 +13,6 @@ CONSENT_WITHDRAWN_KEY = "consent_withdrawn"
 
 #TODO move this to engagement db to rapid_pro sync once we support syncing imputed labels to db
 
-import time #Todo remove before merging
-def time_it(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = func(*args,**kwargs)
-        end = time.time()
-        print(func.__name__ +" took " + str((end-start)*1000) + " mil sec")
-        return result
-    return wrapper
-
-
 def _generate_weekly_advert_and_opt_out_uuids(participants_by_column, analysis_config,
                                               google_cloud_credentials_file_path, membership_group_dir_path):
     '''
@@ -155,7 +144,7 @@ def _ensure_contact_field_exists(workspace_contact_fields, contact_field, rapid_
     if contact_field.key not in workspace_contact_field_keys:
         rapid_pro.create_field(field_id=contact_field.key, label=contact_field.label)
 
-@time_it
+
 def _sync_advert_contacts_fields_to_rapid_pro(cache, target_uuids, advert_contact_field_key, uuid_table, rapid_pro):
     '''
     Updates the advert contact field for the target urns.
@@ -195,7 +184,7 @@ def _sync_advert_contacts_fields_to_rapid_pro(cache, target_uuids, advert_contac
                 cache.set_synced_uuids(advert_contact_field_key, synced_uuids)
 
     else:
-        log.info(f'Found {len(uuids_to_sync)} uuids to sync in this run skipping...')
+        assert len(uuids_to_sync) == 0
 
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
