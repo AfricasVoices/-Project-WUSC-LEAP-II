@@ -185,6 +185,7 @@ def _sync_advert_contacts_fields_to_rapid_pro(cache, target_uuids, advert_contac
 
     else:
         assert len(uuids_to_sync) == 0
+        log.info("Found 0 uuids to sync in this run skipping...")
 
 
 def sync_advert_contacts_to_rapidpro(participants_by_column, uuid_table, pipeline_config, rapid_pro,
