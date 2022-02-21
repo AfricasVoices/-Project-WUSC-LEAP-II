@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from core_data_modules.data_models import CodeScheme
+from src.engagement_db_to_rapid_pro.configuration import ContactField
 
 
 @dataclass
@@ -37,6 +38,7 @@ class AnalysisDatasetConfiguration:
     raw_dataset: str
     dataset_name: str
     coding_configs: [CodingConfiguration]
+    rapid_pro_non_relevant_field: ContactField = None
 
 
 @dataclass

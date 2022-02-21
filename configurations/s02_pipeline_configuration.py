@@ -209,11 +209,14 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
             token_file_url="gs://avf-credentials/wusc-leap-kalobeyei-textit-token.txt"
         ),
         sync_config=EngagementDBToRapidProConfiguration(
-        consent_withdrawn_dataset=DatasetConfiguration(
+            consent_withdrawn_dataset=DatasetConfiguration(
                 engagement_db_datasets=[], #TODO: to be updated
-                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn" )
+                rapid_pro_contact_field=ContactField(key="leap_s02_kalobeyei_consent_withdrawn",
+                                                     label="leap s02 kalobeyei consent withdrawn" )
             ),
-        sync_advert_contacts = True,
+            weekly_advert_contact_field=ContactField(key="leap_s02_weekly_advert_contacts",
+                                                     label="leap s02 weekly advert contacts"),
+            sync_advert_contacts = True,
         )
     ),
     analysis=AnalysisConfiguration(
@@ -234,6 +237,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e01_raw",
                 dataset_name = "Leap_s02e01",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e01_non_relevant_contacts",
+                                                          label = "leap s02e01 non relevant contacts"), # label should be less than 36 char, non-numeric, with no special characters
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e01"),
@@ -246,6 +251,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e02_raw",
                 dataset_name = "Leap_s02e02",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e02_non_relevant_contacts",
+                                                          label="leap s02e02 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e02"),
@@ -258,6 +265,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e03_raw",
                 dataset_name = "Leap_s02e03",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e03_non_relevant_contacts",
+                                                          label = "leap s02e03 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e03"),
@@ -270,6 +279,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e04_raw",
                 dataset_name = "Leap_s02e04",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e04_non_relevant_contacts",
+                                                          label = "leap s02e04 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e04"),
@@ -282,6 +293,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e05_raw",
                 dataset_name = "Leap_s02e05",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e05_non_relevant_contacts",
+                                                          label="leap s02e05 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e05"),
@@ -294,6 +307,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e06_raw",
                 dataset_name = "Leap_s02e06",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e06_non_relevant_contacts",
+                                                          label="leap s02e06 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e06"),
@@ -306,6 +321,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e07_raw",
                 dataset_name = "Leap_s02e07",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e07_non_relevant_contacts",
+                                                          label="leap s02e07 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e07"),
@@ -318,6 +335,8 @@ PIPELINE_CONFIGURATION = PipelineConfiguration(
                 dataset_type=DatasetTypes.RESEARCH_QUESTION_ANSWER,
                 raw_dataset="s02e08_raw",
                 dataset_name = "Leap_s02e08",
+                rapid_pro_non_relevant_field=ContactField(key="leap_s02e08_non_relevant_contacts",
+                                                          label="leap s02e08 non relevant contacts"),
                 coding_configs=[
                     CodingConfiguration(
                         code_scheme=load_code_scheme("s02e08"),
