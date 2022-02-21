@@ -11,8 +11,8 @@ class WriteModes:
 
 @dataclass
 class ContactField:
-    key: str = None
-    label: str = None
+    key: str
+    label: str
 
 
 @dataclass
